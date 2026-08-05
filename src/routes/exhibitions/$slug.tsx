@@ -5,7 +5,7 @@ import heroExhibition from "@/assets/hero-exhibition.jpg";
 import { PageHero, SectionHeading } from "@/components/Sections";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { exhibitions } from "@/data/content";
+import { exhibitions, type Exhibition } from "@/data/content";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/exhibitions/$slug")({
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/exhibitions/$slug")({
 });
 
 function ExhibitionDetail() {
-  const { exhibition: e } = Route.useLoaderData();
+  const { exhibition: e } = Route.useLoaderData() as { exhibition: Exhibition };
   const { p, t, lang } = useI18n();
 
   return (

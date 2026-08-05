@@ -11,7 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ConferencesRouteImport } from './routes/conferences'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as ExhibitionsIndexRouteImport } from './routes/exhibitions/index'
+import { Route as ExhibitionsSlugRouteImport } from './routes/exhibitions/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +27,98 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConferencesRoute = ConferencesRouteImport.update({
+  id: '/conferences',
+  path: '/conferences',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExhibitionsIndexRoute = ExhibitionsIndexRouteImport.update({
+  id: '/exhibitions/',
+  path: '/exhibitions/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExhibitionsSlugRoute = ExhibitionsSlugRouteImport.update({
+  id: '/exhibitions/$slug',
+  path: '/exhibitions/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/conferences': typeof ConferencesRoute
+  '/events': typeof EventsRoute
   '/team': typeof TeamRoute
+  '/exhibitions/$slug': typeof ExhibitionsSlugRoute
+  '/exhibitions/': typeof ExhibitionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/conferences': typeof ConferencesRoute
+  '/events': typeof EventsRoute
   '/team': typeof TeamRoute
+  '/exhibitions/$slug': typeof ExhibitionsSlugRoute
+  '/exhibitions': typeof ExhibitionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/conferences': typeof ConferencesRoute
+  '/events': typeof EventsRoute
   '/team': typeof TeamRoute
+  '/exhibitions/$slug': typeof ExhibitionsSlugRoute
+  '/exhibitions/': typeof ExhibitionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/team'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/conferences'
+    | '/events'
+    | '/team'
+    | '/exhibitions/$slug'
+    | '/exhibitions/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/team'
-  id: '__root__' | '/' | '/about' | '/team'
+  to:
+    | '/'
+    | '/about'
+    | '/conferences'
+    | '/events'
+    | '/team'
+    | '/exhibitions/$slug'
+    | '/exhibitions'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/conferences'
+    | '/events'
+    | '/team'
+    | '/exhibitions/$slug'
+    | '/exhibitions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ConferencesRoute: typeof ConferencesRoute
+  EventsRoute: typeof EventsRoute
   TeamRoute: typeof TeamRoute
+  ExhibitionsSlugRoute: typeof ExhibitionsSlugRoute
+  ExhibitionsIndexRoute: typeof ExhibitionsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +137,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/conferences': {
+      id: '/conferences'
+      path: '/conferences'
+      fullPath: '/conferences'
+      preLoaderRoute: typeof ConferencesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/team': {
       id: '/team'
       path: '/team'
       fullPath: '/team'
       preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exhibitions/': {
+      id: '/exhibitions/'
+      path: '/exhibitions'
+      fullPath: '/exhibitions/'
+      preLoaderRoute: typeof ExhibitionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exhibitions/$slug': {
+      id: '/exhibitions/$slug'
+      path: '/exhibitions/$slug'
+      fullPath: '/exhibitions/$slug'
+      preLoaderRoute: typeof ExhibitionsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +178,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ConferencesRoute: ConferencesRoute,
+  EventsRoute: EventsRoute,
   TeamRoute: TeamRoute,
+  ExhibitionsSlugRoute: ExhibitionsSlugRoute,
+  ExhibitionsIndexRoute: ExhibitionsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
