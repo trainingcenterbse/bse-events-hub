@@ -22,7 +22,7 @@ export const Route = createFileRoute("/team")({
       },
     ],
   }),
-  component: Team;
+  component: Team,
 });
 
 function Team() {
