@@ -71,6 +71,8 @@ export function HeroSlider() {
     return () => window.clearInterval(id);
   }, []);
 
+  const active = slides[index]!;
+
   const go = (delta: number) => setIndex((i) => (i + delta + slides.length) % slides.length);
   const Prev = dir === "rtl" ? ArrowRight : ArrowLeft;
   const Next = dir === "rtl" ? ArrowLeft : ArrowRight;
@@ -94,16 +96,16 @@ export function HeroSlider() {
 
       <div className="relative mx-auto flex min-h-[600px] max-w-7xl flex-col justify-center px-4 py-20 sm:px-6">
         <div key={index} className="fade-up max-w-3xl">
-          <p className="eyebrow">{p(slides[index].eyebrow)}</p>
+          <p className="eyebrow">{p(active.eyebrow)}</p>
           <h1 className="mt-4 text-4xl font-bold leading-tight text-primary-foreground sm:text-5xl lg:text-6xl">
-            {p(slides[index].title)}
+            {p(active.title)}
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-primary-foreground/80">
-            {p(slides[index].text)}
+            {p(active.text)}
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Button asChild size="lg" variant="secondary">
-              <Link to={slides[index].to}>{p(slides[index].cta)}</Link>
+              <Link to={active.to}>{p(active.cta)}</Link>
             </Button>
             <Button
               asChild
