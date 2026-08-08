@@ -1,13 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, CalendarDays, Store, Presentation, Users } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Handshake, Store, Presentation, Users } from "lucide-react";
 
+import seminar from "@/assets/seminar.jpg";
 import teamWork from "@/assets/team-work.jpg";
+import heroConference from "@/assets/hero-conference.jpg";
+import heroExhibition from "@/assets/hero-exhibition.jpg";
+import heroEvents from "@/assets/hero-events.jpg";
+import heroSponsors from "@/assets/hero-sponsors.jpg";
 import { HeroSlider } from "@/components/HeroSlider";
+import { CountUp, Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/Sections";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { audiences, conferences, events, exhibitions, services, stats } from "@/data/content";
+import { partners } from "@/data/sponsors";
 import { useI18n } from "@/lib/i18n";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
