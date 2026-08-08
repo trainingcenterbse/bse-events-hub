@@ -38,10 +38,11 @@ export const Route = createFileRoute("/")({
 });
 
 const pillars = [
-  { icon: Presentation, to: "/conferences" as const },
-  { icon: Store, to: "/exhibitions" as const },
-  { icon: CalendarDays, to: "/events" as const },
-  { icon: Users, to: "/team" as const },
+  { icon: Presentation, to: "/conferences" as const, image: heroConference },
+  { icon: Store, to: "/exhibitions" as const, image: heroExhibition },
+  { icon: CalendarDays, to: "/events" as const, image: heroEvents },
+  { icon: Handshake, to: "/sponsors" as const, image: heroSponsors },
+  { icon: Users, to: "/team" as const, image: teamWork },
 ];
 
 function Home() {
@@ -77,6 +78,15 @@ function Home() {
     },
     {
       ...pillars[3]!,
+      title: t("navSponsors"),
+      text: p({
+        ar: "مستويات رعاية متدرجة وشبكة شركاء من الجهات الحكومية والشركات الوطنية والجامعات.",
+        en: "Tiered sponsorship levels and a partner network of government entities, national companies and universities.",
+      }),
+      count: partners.length,
+    },
+    {
+      ...pillars[4]!,
       title: t("navTeam"),
       text: p({
         ar: "فريق متعدد التخصصات في التشغيل والبرامج العلمية والتسويق وخدمة الحضور.",
@@ -85,6 +95,7 @@ function Home() {
       count: 24,
     },
   ];
+
 
   return (
     <>
