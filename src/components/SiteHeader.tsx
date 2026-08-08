@@ -17,18 +17,26 @@ export function SiteHeader() {
     { to: "/conferences", label: t("navConferences") },
     { to: "/exhibitions", label: t("navExhibitions") },
     { to: "/events", label: t("navEvents") },
+    { to: "/sponsors", label: t("navSponsors") },
   ] as const;
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center gap-4 px-4 sm:px-6">
         <Link to="/" className="flex shrink-0 items-center gap-3" onClick={() => setOpen(false)}>
-          <img src={logo.url} alt={t("society")} width={44} height={44} className="h-11 w-11" />
+          <img
+            src={logo.url}
+            alt={t("society")}
+            width={44}
+            height={44}
+            className="size-11 rounded-full ring-1 ring-primary/15"
+          />
           <span className="flex flex-col leading-tight">
             <span className="font-display text-lg font-bold text-primary">{t("brand")}</span>
             <span className="text-[11px] text-muted-foreground">{t("brandSub")}</span>
           </span>
         </Link>
+
 
         <nav className="mx-auto hidden items-center gap-1 lg:flex">
           {links.map((l) => (
