@@ -175,3 +175,98 @@
     transform: none;
   }
 }
+
+/* ===== Premium surfaces & motion (v2 design pass) ===== */
+
+:root {
+  --gradient-gold: linear-gradient(100deg, oklch(0.68 0.11 72), oklch(0.86 0.13 88), oklch(0.7 0.12 70));
+  --gradient-veil: linear-gradient(
+    to top,
+    oklch(0.18 0.08 265 / 0.96) 0%,
+    oklch(0.2 0.09 265 / 0.72) 38%,
+    oklch(0.24 0.1 265 / 0.15) 75%,
+    transparent 100%
+  );
+  --shadow-glow: 0 0 0 1px oklch(0.75 0.128 78 / 0.35), 0 24px 60px -26px oklch(0.75 0.128 78 / 0.45);
+}
+
+@utility gold-text {
+  background-image: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility gold-rule {
+  background-image: var(--gradient-gold);
+}
+
+@utility glass-panel {
+  background-color: oklch(1 0 0 / 0.08);
+  border: 1px solid oklch(1 0 0 / 0.16);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-radius: var(--radius-2xl);
+}
+
+@utility veil {
+  background-image: var(--gradient-veil);
+}
+
+/* Image-led showcase card */
+@utility showcase-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  transition:
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  &:hover {
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-6px);
+  }
+  & img {
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  &:hover img {
+    transform: scale(1.07);
+  }
+}
+
+@utility glow-ring {
+  box-shadow: var(--shadow-glow);
+}
+
+@utility numeral {
+  font-family: var(--font-heading);
+  font-variant-numeric: tabular-nums;
+  line-height: 0.85;
+}
+
+@utility ghost-numeral {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1.5px oklch(0.37 0.147 264 / 0.18);
+}
+
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility diagonal-cut {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 3.5rem));
+}

@@ -13,6 +13,7 @@ export function SiteFooter() {
     { to: "/conferences", label: t("navConferences") },
     { to: "/exhibitions", label: t("navExhibitions") },
     { to: "/events", label: t("navEvents") },
+    { to: "/sponsors", label: t("navSponsors") },
   ] as const;
 
   return (
@@ -20,14 +21,21 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-4">
         <div className="lg:col-span-2">
           <div className="flex items-center gap-3">
-            <span className="grid size-12 place-items-center rounded-lg bg-primary-foreground/95">
-              <img src={logo.url} alt={t("society")} width={36} height={36} className="h-9 w-9" />
+            <span className="grid size-14 place-items-center rounded-full bg-primary-foreground/95 ring-1 ring-accent/40">
+              <img
+                src={logo.url}
+                alt={t("society")}
+                width={48}
+                height={48}
+                className="size-12 rounded-full"
+              />
             </span>
             <div>
               <p className="font-display text-xl font-bold">{t("brand")}</p>
               <p className="text-sm text-primary-foreground/70">{t("society")}</p>
             </div>
           </div>
+
           <p className="mt-5 max-w-md text-sm leading-relaxed text-primary-foreground/75">
             {lang === "ar"
               ? "قسم إدارة الفعاليات والمؤتمرات والمعارض في جمعية المهندسين البحرينية — ننظم منصات هندسية متخصصة تجمع الرعاة والعارضين والحضور في مكان واحد."
