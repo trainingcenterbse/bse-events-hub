@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ConferencesRouteImport } from './routes/conferences'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as ExhibitionsIndexRouteImport } from './routes/exhibitions/index'
 import { Route as ExhibitionsSlugRouteImport } from './routes/exhibitions/$slug'
@@ -37,6 +38,11 @@ const EventsRoute = EventsRouteImport.update({
   path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SponsorsRoute = SponsorsRouteImport.update({
+  id: '/sponsors',
+  path: '/sponsors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/conferences': typeof ConferencesRoute
   '/events': typeof EventsRoute
+  '/sponsors': typeof SponsorsRoute
   '/team': typeof TeamRoute
   '/exhibitions/$slug': typeof ExhibitionsSlugRoute
   '/exhibitions/': typeof ExhibitionsIndexRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/conferences': typeof ConferencesRoute
   '/events': typeof EventsRoute
+  '/sponsors': typeof SponsorsRoute
   '/team': typeof TeamRoute
   '/exhibitions/$slug': typeof ExhibitionsSlugRoute
   '/exhibitions': typeof ExhibitionsIndexRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/conferences': typeof ConferencesRoute
   '/events': typeof EventsRoute
+  '/sponsors': typeof SponsorsRoute
   '/team': typeof TeamRoute
   '/exhibitions/$slug': typeof ExhibitionsSlugRoute
   '/exhibitions/': typeof ExhibitionsIndexRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/conferences'
     | '/events'
+    | '/sponsors'
     | '/team'
     | '/exhibitions/$slug'
     | '/exhibitions/'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/conferences'
     | '/events'
+    | '/sponsors'
     | '/team'
     | '/exhibitions/$slug'
     | '/exhibitions'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/conferences'
     | '/events'
+    | '/sponsors'
     | '/team'
     | '/exhibitions/$slug'
     | '/exhibitions/'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ConferencesRoute: typeof ConferencesRoute
   EventsRoute: typeof EventsRoute
+  SponsorsRoute: typeof SponsorsRoute
   TeamRoute: typeof TeamRoute
   ExhibitionsSlugRoute: typeof ExhibitionsSlugRoute
   ExhibitionsIndexRoute: typeof ExhibitionsIndexRoute
@@ -151,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sponsors': {
+      id: '/sponsors'
+      path: '/sponsors'
+      fullPath: '/sponsors'
+      preLoaderRoute: typeof SponsorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/team': {
       id: '/team'
       path: '/team'
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ConferencesRoute: ConferencesRoute,
   EventsRoute: EventsRoute,
+  SponsorsRoute: SponsorsRoute,
   TeamRoute: TeamRoute,
   ExhibitionsSlugRoute: ExhibitionsSlugRoute,
   ExhibitionsIndexRoute: ExhibitionsIndexRoute,
@@ -187,13 +208,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

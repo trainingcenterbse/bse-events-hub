@@ -80,7 +80,7 @@ function Sponsors() {
                 }`}
               >
                 {tier.featured && (
-                  <span className="absolute end-0 top-0 flex items-center gap-1 rounded-bs-2xl bg-accent px-3 py-1.5 text-[11px] font-bold text-accent-foreground">
+                  <span className="absolute end-0 top-0 flex items-center gap-1 rounded-es-2xl bg-accent px-3 py-1.5 text-[11px] font-bold text-accent-foreground">
                     <Sparkles className="size-3.5" />
                     {p({ ar: "الأكثر تميزاً", en: "Most prominent" })}
                   </span>
