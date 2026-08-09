@@ -29,22 +29,23 @@ export function SiteHeader() {
             alt={t("society")}
             width={44}
             height={44}
-            className="size-11 rounded-full ring-1 ring-primary/15"
+            className="size-11 rounded-full ring-2 ring-accent/40"
           />
           <span className="flex flex-col leading-tight">
-            <span className="font-display text-lg font-bold text-primary">{t("brand")}</span>
-            <span className="text-[11px] text-muted-foreground">{t("brandSub")}</span>
+            <span className="font-display text-xl font-extrabold tracking-tight text-primary">
+              {t("brand")}
+            </span>
+            <span className="text-[12px] font-semibold text-foreground/70">{t("brandSub")}</span>
           </span>
         </Link>
 
-
-        <nav className="mx-auto hidden items-center gap-1 lg:flex">
+        <nav className="mx-auto hidden items-center gap-0.5 lg:flex">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
               activeOptions={{ exact: l.to === "/" }}
-              className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-primary data-[status=active]:bg-secondary data-[status=active]:text-primary"
+              className="font-display rounded-md px-3 py-2 text-[15px] font-semibold text-foreground/80 transition-colors hover:bg-secondary hover:text-primary data-[status=active]:bg-secondary data-[status=active]:text-primary"
             >
               {l.label}
             </Link>
@@ -52,11 +53,11 @@ export function SiteHeader() {
         </nav>
 
         <div className="ms-auto flex items-center gap-2 lg:ms-0">
-          <Button variant="ghost" size="sm" onClick={toggle} className="gap-1.5 text-primary">
+          <Button variant="ghost" size="sm" onClick={toggle} className="gap-1.5 font-semibold text-primary">
             <Globe className="size-4" />
             {t("langSwitch")}
           </Button>
-          <Button asChild size="sm" className="hidden sm:inline-flex">
+          <Button asChild size="sm" className="hidden font-semibold sm:inline-flex">
             <a href="#contact">{t("becomeSponsor")}</a>
           </Button>
           <button
