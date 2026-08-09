@@ -130,22 +130,19 @@ function Conferences() {
                     </span>
                   </div>
                   <div className="mt-5 flex flex-wrap gap-2">
-                    {c.topics.map((tp) => (
-                      <Badge key={tp.en} variant="outline">
-                        {p(tp)}
+                    {c.tracks.map((tp) => (
+                      <Badge key={tp.title.en} variant="outline">
+                        {p(tp.title)}
                       </Badge>
                     ))}
                   </div>
                   {c.url && (
-                    <a
-                      href={c.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-accent-foreground"
-                    >
-                      {t("details")}
-                      <ArrowUpRight className="size-4" />
-                    </a>
+                    <Button asChild size="sm" className="mt-6 gap-1.5">
+                      <a href={c.url} target="_blank" rel="noreferrer">
+                        {t("details")}
+                        <ArrowUpRight className="size-4" />
+                      </a>
+                    </Button>
                   )}
                 </div>
               </article>
