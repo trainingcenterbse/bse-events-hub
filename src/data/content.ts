@@ -1196,3 +1196,107 @@ export const teamUnits: {
     ],
   },
 ];
+
+export type Leader = {
+  photo: "p1" | "p2" | "p3" | "p4" | "p5" | "p6";
+  name: Localized;
+  role: Localized;
+  unit: Localized;
+  bio: Localized;
+  focus: Localized[];
+  email: string;
+};
+
+/** Department leadership — names are illustrative until confirmed by the society. */
+export const leadership: Leader[] = [
+  {
+    photo: "p1",
+    name: { ar: "م. خالد المنصوري", en: "Eng. Khalid Al Mansoori" },
+    role: { ar: "رئيس قسم الفعاليات والمؤتمرات والمعارض", en: "Head of Events, Conferences & Exhibitions" },
+    unit: { ar: "الإدارة والتخطيط", en: "Leadership & planning" },
+    bio: {
+      ar: "يقود الاستراتيجية السنوية للقسم والعلاقة مع مجلس إدارة الجمعية والجهات الحكومية، بخبرة تمتد لأكثر من عشرين عاماً في تنظيم المؤتمرات الهندسية.",
+      en: "Leads the department's annual strategy and the relationship with the BSE board and government entities, with over twenty years in engineering conference delivery.",
+    },
+    focus: [
+      { ar: "الاستراتيجية السنوية", en: "Annual strategy" },
+      { ar: "العلاقات الحكومية", en: "Government relations" },
+    ],
+    email: "events@bse.bh",
+  },
+  {
+    photo: "p2",
+    name: { ar: "م. نورة الشيخ", en: "Eng. Noora Al Shaikh" },
+    role: { ar: "نائبة رئيس القسم — التخطيط والمتابعة", en: "Deputy Head — Planning & Follow-up" },
+    unit: { ar: "الإدارة والتخطيط", en: "Leadership & planning" },
+    bio: {
+      ar: "مسؤولة عن الجدول الزمني السنوي للفعاليات وميزانياتها ومؤشرات الأداء، وتشرف على تقارير الأثر التي تُسلَّم للرعاة بعد كل فعالية.",
+      en: "Owns the annual event calendar, budgets and performance indicators, and oversees the impact reports delivered to sponsors after every event.",
+    },
+    focus: [
+      { ar: "الميزانيات ومؤشرات الأداء", en: "Budgets & KPIs" },
+      { ar: "تقارير الأثر", en: "Impact reporting" },
+    ],
+    email: "planning@bse.bh",
+  },
+  {
+    photo: "p3",
+    name: { ar: "م. أحمد العلوي", en: "Eng. Ahmed Al Alawi" },
+    role: { ar: "مدير التشغيل واللوجستيات", en: "Operations & Logistics Manager" },
+    unit: { ar: "التشغيل واللوجستيات", en: "Operations & logistics" },
+    bio: {
+      ar: "يدير تنفيذ الفعاليات في الموقع: المواقع والمقاولون ومخططات الأرضية والأمن والسلامة والجدولة اليومية خلال أيام التشغيل.",
+      en: "Runs on-site delivery: venues, contractors, floorplans, health & safety and daily scheduling during delivery days.",
+    },
+    focus: [
+      { ar: "مخططات الأرضية والأجنحة", en: "Floorplans & booths" },
+      { ar: "الأمن والسلامة", en: "Health & safety" },
+    ],
+    email: "operations@bse.bh",
+  },
+  {
+    photo: "p4",
+    name: { ar: "د. مريم الحداد", en: "Dr. Mariam Al Haddad" },
+    role: { ar: "رئيسة اللجنة العلمية والبرامج الفنية", en: "Chair of Technical Programmes" },
+    unit: { ar: "البرامج العلمية", en: "Technical programmes" },
+    bio: {
+      ar: "تشرف على بناء الأجندة العلمية للمؤتمرات وتحكيم الأوراق الفنية والتنسيق مع اللجان الفنية والمتحدثين من داخل المملكة وخارجها.",
+      en: "Oversees conference technical agendas, peer review of papers, and coordination with technical committees and speakers locally and abroad.",
+    },
+    focus: [
+      { ar: "الأوراق المحكّمة", en: "Peer-reviewed papers" },
+      { ar: "استقطاب المتحدثين", en: "Speaker acquisition" },
+    ],
+    email: "technical@bse.bh",
+  },
+  {
+    photo: "p5",
+    name: { ar: "م. يوسف الدوسري", en: "Eng. Yousif Al Dossari" },
+    role: { ar: "مدير التسويق والشراكات", en: "Marketing & Partnerships Manager" },
+    unit: { ar: "التسويق والإعلام", en: "Marketing & media" },
+    bio: {
+      ar: "مسؤول عن باقات الرعاية والحملات الرقمية والعلاقات الإعلامية المحلية والخليجية، وإنتاج المحتوى البصري لكل فعالية.",
+      en: "Responsible for sponsorship packages, digital campaigns, local and Gulf media relations, and visual content production for every event.",
+    },
+    focus: [
+      { ar: "باقات الرعاية", en: "Sponsorship packages" },
+      { ar: "الحملات والإعلام", en: "Campaigns & media" },
+    ],
+    email: "marketing@bse.bh",
+  },
+  {
+    photo: "p6",
+    name: { ar: "أ. لطيفة الجودر", en: "Ms. Latifa Al Jowder" },
+    role: { ar: "مسؤولة التسجيل وخدمة الحضور", en: "Registration & Attendee Care Lead" },
+    unit: { ar: "خدمة الحضور والتسجيل", en: "Registration & attendee care" },
+    bio: {
+      ar: "تدير أنظمة التسجيل الرقمية والشارات ومسارات الدخول واستقبال الضيوف والدعم المباشر للحضور طوال أيام الفعالية.",
+      en: "Manages digital registration, badging, entry flows, guest reception and live attendee support throughout event days.",
+    },
+    focus: [
+      { ar: "أنظمة التسجيل", en: "Registration systems" },
+      { ar: "تجربة الحضور", en: "Attendee experience" },
+    ],
+    email: "registration@bse.bh",
+  },
+];
