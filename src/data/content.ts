@@ -279,7 +279,6 @@ export type Conference = {
   venueNote: Localized;
   mapUrl: string;
   status: "upcoming" | "past";
-  topics: Localized[];
   summary: Localized;
   description: Localized;
   organisers: Localized[];
