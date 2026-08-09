@@ -708,85 +708,291 @@ export const conferences: Conference[] = [
 
 
 export type EventItem = {
+  slug: string;
+  /** "event" = a standalone event with its own edition/page, "program" = a recurring activity category */
+  kind: "event" | "program";
+  cover: "gala" | "events" | "team" | "conference" | "seminar" | "exhibition";
   title: Localized;
   category: Localized;
   date: Localized;
+  venue: Localized;
   summary: Localized;
+  description: Localized;
+  highlights: Localized[];
+  audience: Localized;
+  stats: { value: string; label: Localized }[];
+  program: { time: string; title: Localized }[];
   status: "upcoming" | "past";
 };
 
 export const events: EventItem[] = [
   {
+    slug: "bahraini-engineer-day",
+    kind: "event",
+    cover: "gala",
     title: { ar: "يوم المهندس البحريني", en: "Bahraini Engineer Day" },
     category: { ar: "فعالية وطنية", en: "National event" },
     date: { ar: "سنوياً", en: "Annually" },
+    venue: { ar: "قاعة كبرى — مملكة البحرين", en: "Grand hall — Kingdom of Bahrain" },
     status: "upcoming",
     summary: {
       ar: "احتفالية وطنية سنوية تكرّم المهندس البحريني وتبرز إنجازاته في مشاريع المملكة الكبرى، مع معرض مصاحب وجلسات حوارية.",
       en: "An annual national celebration honouring Bahraini engineers and their contribution to the Kingdom's major projects, with an accompanying showcase and panel sessions.",
     },
+    description: {
+      ar: "يوم المهندس البحريني هو أبرز فعالية وطنية ينظمها قسم الفعاليات، ويُقام بحضور رسمي رفيع لتكريم المهندسين والمهندسات المتميزين وإبراز إسهام المهنة الهندسية في مشاريع البنية التحتية والطاقة والإسكان في المملكة. يشمل البرنامج حفل تكريم، ومعرضاً لمشاريع هندسية وطنية، وجلسة حوارية مع قيادات القطاع، ولقاءات تواصل مهني للحضور والرعاة.",
+      en: "Bahraini Engineer Day is the department's flagship national event, held with senior official attendance to honour distinguished engineers and highlight the profession's contribution to the Kingdom's infrastructure, energy and housing projects. The programme includes an awards ceremony, a national engineering projects showcase, a leadership panel and networking for attendees and sponsors.",
+    },
+    highlights: [
+      { ar: "تكريم المهندسين المتميزين وأصحاب المسيرة المهنية", en: "Honouring distinguished engineers and lifetime achievers" },
+      { ar: "معرض لمشاريع هندسية وطنية بمشاركة الشركات", en: "Showcase of national engineering projects with companies" },
+      { ar: "جلسة حوارية مع قيادات القطاع الهندسي", en: "Panel session with engineering sector leaders" },
+      { ar: "فرص ظهور واضحة للرعاة على المسرح والمطبوعات", en: "Clear sponsor visibility on stage and in print" },
+    ],
+    audience: {
+      ar: "المهندسون وأعضاء الجمعية، الجهات الحكومية، الشركات الراعية، الإعلام.",
+      en: "Engineers and BSE members, government entities, sponsoring companies and media.",
+    },
+    stats: [
+      { value: "800+", label: { ar: "حاضر", en: "Attendees" } },
+      { value: "30+", label: { ar: "مكرّم", en: "Honourees" } },
+      { value: "12+", label: { ar: "جهة راعية", en: "Sponsors" } },
+    ],
+    program: [
+      { time: "17:30", title: { ar: "استقبال الضيوف والتسجيل", en: "Guest reception & registration" } },
+      { time: "18:15", title: { ar: "الكلمات الرسمية وكلمة الجمعية", en: "Official addresses & BSE remarks" } },
+      { time: "19:00", title: { ar: "حفل التكريم", en: "Awards ceremony" } },
+      { time: "20:00", title: { ar: "جولة في معرض المشاريع ولقاءات مهنية", en: "Projects showcase tour & networking" } },
+    ],
   },
   {
+    slug: "annual-ramadan-ghabga",
+    kind: "event",
+    cover: "events",
     title: { ar: "الغبقة الرمضانية السنوية", en: "Annual Ramadan Ghabga" },
     category: { ar: "لقاء اجتماعي", en: "Networking gathering" },
     date: { ar: "رمضان — سنوياً", en: "Ramadan — annually" },
+    venue: { ar: "مقر الجمعية، الجفير", en: "BSE Headquarters, Juffair" },
     status: "past",
     summary: {
       ar: "لقاء اجتماعي سنوي يجمع أعضاء الجمعية وشركاءها من القطاعين العام والخاص في أجواء رمضانية.",
       en: "An annual social gathering bringing together BSE members and partners from the public and private sectors.",
     },
+    description: {
+      ar: "الغبقة الرمضانية السنوية من أقدم تقاليد الجمعية الاجتماعية، وتُقام في ليالي رمضان لتجمع الأعضاء وعائلاتهم مع ممثلي الجهات الحكومية والشركات الشريكة في جو غير رسمي يعزز العلاقات المهنية. ينظم القسم الفعالية بالكامل من الدعوات والتسجيل إلى الضيافة والبرنامج المصاحب والتغطية الإعلامية.",
+      en: "The annual Ramadan Ghabga is among BSE's longest-standing social traditions, held during Ramadan nights to bring members and their families together with government representatives and partner companies in an informal setting that strengthens professional relationships. The department delivers the event end to end — invitations, registration, hospitality, side programme and media coverage.",
+    },
+    highlights: [
+      { ar: "لقاء غير رسمي بين الأعضاء وقيادات القطاع", en: "Informal networking between members and sector leaders" },
+      { ar: "برنامج مصاحب وفعاليات للعائلات", en: "Side programme and family activities" },
+      { ar: "ظهور الرعاة في الديكور والمطبوعات والدعوات", en: "Sponsor visibility across décor, print and invitations" },
+    ],
+    audience: {
+      ar: "أعضاء الجمعية وعائلاتهم، الشركات الشريكة، ممثلو الجهات الحكومية.",
+      en: "BSE members and their families, partner companies and government representatives.",
+    },
+    stats: [
+      { value: "400+", label: { ar: "حاضر", en: "Attendees" } },
+      { value: "15+", label: { ar: "جهة مشاركة", en: "Participating entities" } },
+      { value: "1", label: { ar: "ليلة سنوياً", en: "Night per year" } },
+    ],
+    program: [
+      { time: "21:00", title: { ar: "استقبال الحضور", en: "Guest reception" } },
+      { time: "21:30", title: { ar: "كلمة ترحيبية من مجلس الإدارة", en: "Welcome remarks from the board" } },
+      { time: "22:00", title: { ar: "الغبقة والبرنامج المصاحب", en: "Ghabga & side programme" } },
+    ],
   },
   {
+    slug: "volunteers-recognition",
+    kind: "event",
+    cover: "team",
     title: { ar: "تكريم المتطوعين", en: "Volunteers Recognition Ceremony" },
     category: { ar: "حفل تكريم", en: "Awards ceremony" },
     date: { ar: "ديسمبر — سنوياً", en: "December — annually" },
+    venue: { ar: "مقر الجمعية، الجفير", en: "BSE Headquarters, Juffair" },
     status: "past",
     summary: {
       ar: "حفل تكريم أكثر من 150 متطوعاً من أعضاء الجمعية تقديراً لعطائهم خلال العام، تزامناً مع الأعياد الوطنية.",
       en: "A ceremony honouring more than 150 volunteering members for their contribution during the year, timed with the National Day celebrations.",
     },
+    description: {
+      ar: "حفل سنوي يقام في ديسمبر تزامناً مع الأعياد الوطنية لتكريم المتطوعين من أعضاء الجمعية واللجان الفنية الذين أسهموا في تنفيذ الفعاليات والمؤتمرات والمعارض خلال العام. يشمل الحفل عرضاً لحصاد العام، وتوزيع شهادات ودروع التقدير، ولقاءً مفتوحاً بين اللجان.",
+      en: "An annual December ceremony, timed with the National Day celebrations, honouring volunteers from BSE's membership and technical committees who helped deliver events, conferences and exhibitions during the year. It features a year-in-review presentation, certificates and shields of appreciation, and an open gathering across committees.",
+    },
+    highlights: [
+      { ar: "تكريم أكثر من 150 متطوعاً ومتطوعة", en: "Honouring more than 150 volunteers" },
+      { ar: "عرض حصاد العام من الفعاليات والمؤتمرات", en: "Year-in-review of events and conferences" },
+      { ar: "لقاء مفتوح بين اللجان الفنية", en: "Open gathering across technical committees" },
+    ],
+    audience: {
+      ar: "متطوعو الجمعية، اللجان الفنية، مجلس الإدارة.",
+      en: "BSE volunteers, technical committees and the board.",
+    },
+    stats: [
+      { value: "150+", label: { ar: "متطوع مكرّم", en: "Volunteers honoured" } },
+      { value: "10+", label: { ar: "لجنة فنية", en: "Technical committees" } },
+      { value: "1", label: { ar: "حفل سنوي", en: "Annual ceremony" } },
+    ],
+    program: [
+      { time: "18:00", title: { ar: "الاستقبال والتسجيل", en: "Reception & registration" } },
+      { time: "18:30", title: { ar: "عرض حصاد العام", en: "Year-in-review presentation" } },
+      { time: "19:15", title: { ar: "توزيع شهادات ودروع التقدير", en: "Certificates & appreciation shields" } },
+    ],
   },
   {
+    slug: "annual-general-assembly",
+    kind: "event",
+    cover: "conference",
     title: { ar: "الجمعية العمومية السنوية", en: "Annual General Assembly" },
     category: { ar: "اجتماع مؤسسي", en: "Corporate meeting" },
     date: { ar: "أبريل — سنوياً", en: "April — annually" },
+    venue: { ar: "مقر الجمعية، الجفير", en: "BSE Headquarters, Juffair" },
     status: "past",
     summary: {
       ar: "اجتماع أعضاء الجمعية في المقر بالجفير لمناقشة التقارير السنوية وانتخاب مجلس الإدارة، وينظمه القسم لوجستياً بالكامل.",
       en: "Members convene at the Juffair headquarters to review annual reports and elect the board — organised end-to-end by the department.",
     },
+    description: {
+      ar: "الجمعية العمومية السنوية هي أعلى سلطة في جمعية المهندسين البحرينية، ويجتمع فيها الأعضاء لمناقشة التقرير الإداري والحسابات الختامية واعتماد الخطة السنوية وانتخاب مجلس الإدارة عند استحقاق الدورة. يتولى القسم تنظيم الاجتماع لوجستياً: الدعوات، وتسجيل الحضور والتحقق من العضوية، وقاعة الاجتماع، وأنظمة التصويت، وتوثيق المحاضر.",
+      en: "The Annual General Assembly is BSE's highest authority, where members review the administrative report and final accounts, approve the annual plan and elect the board when the term falls due. The department handles the logistics: invitations, attendance registration and membership verification, the assembly hall, voting systems and minute-taking.",
+    },
+    highlights: [
+      { ar: "مناقشة التقرير الإداري والحسابات الختامية", en: "Review of the administrative report and final accounts" },
+      { ar: "أنظمة تسجيل والتحقق من العضوية", en: "Registration and membership verification systems" },
+      { ar: "إدارة عملية التصويت والانتخابات", en: "Management of voting and elections" },
+    ],
+    audience: {
+      ar: "أعضاء الجمعية العاملون، مجلس الإدارة، مراقب الحسابات.",
+      en: "Full BSE members, the board and the auditor.",
+    },
+    stats: [
+      { value: "500+", label: { ar: "عضو مشارك", en: "Participating members" } },
+      { value: "1", label: { ar: "اجتماع سنوي", en: "Annual meeting" } },
+      { value: "100%", label: { ar: "تنظيم داخلي", en: "In-house organisation" } },
+    ],
+    program: [
+      { time: "17:00", title: { ar: "تسجيل الحضور والتحقق من العضوية", en: "Attendance registration & membership verification" } },
+      { time: "18:00", title: { ar: "افتتاح الاجتماع وعرض التقارير", en: "Opening & presentation of reports" } },
+      { time: "19:30", title: { ar: "المناقشة والتصويت", en: "Discussion & voting" } },
+    ],
   },
   {
+    slug: "technical-seminars",
+    kind: "program",
+    cover: "seminar",
     title: { ar: "الندوات الفنية المتخصصة", en: "Specialised Technical Seminars" },
     category: { ar: "ندوة", en: "Seminar" },
     date: { ar: "برنامج شهري", en: "Monthly programme" },
+    venue: { ar: "مقر الجمعية وقاعات الشركاء", en: "BSE headquarters and partner venues" },
     status: "upcoming",
     summary: {
       ar: "برنامج شهري من الندوات وورش العمل في التخصصات المدنية والكهربائية والميكانيكية والرقمية، بالتعاون مع اللجان الفنية للجمعية.",
       en: "A monthly programme of seminars and workshops across civil, electrical, mechanical and digital disciplines, run with BSE's technical committees.",
     },
+    description: {
+      ar: "برنامج مستمر من الندوات الفنية وورش العمل يقدمه القسم بالتعاون مع اللجان الفنية في الجمعية. تُبنى الندوات على احتياج فعلي من السوق أو من الأعضاء، وتقدم بواسطة خبراء من الشركات والجامعات، وتُمنح للحضور شهادات حضور تُعتمد ضمن ساعات التطوير المهني المستمر.",
+      en: "A continuous programme of technical seminars and workshops delivered with BSE's technical committees. Topics respond to real market or member needs, are presented by experts from industry and academia, and attendees receive certificates counting towards continuing professional development hours.",
+    },
+    highlights: [
+      { ar: "ندوة أو ورشة شهرياً على الأقل", en: "At least one seminar or workshop each month" },
+      { ar: "شهادات حضور معتمدة ضمن ساعات CPD", en: "Attendance certificates counting toward CPD hours" },
+      { ar: "متحدثون من الشركات والجامعات", en: "Speakers from industry and academia" },
+      { ar: "إمكانية رعاية ندوة واحدة أو سلسلة كاملة", en: "Sponsor a single seminar or a full series" },
+    ],
+    audience: {
+      ar: "المهندسون الممارسون، الفنيون، الطلبة، الشركات الراعية للمحتوى الفني.",
+      en: "Practising engineers, technicians, students and companies sponsoring technical content.",
+    },
+    stats: [
+      { value: "40+", label: { ar: "ندوة وورشة سنوياً", en: "Seminars & workshops a year" } },
+      { value: "2500+", label: { ar: "مشارك سنوياً", en: "Participants a year" } },
+      { value: "4", label: { ar: "تخصصات رئيسية", en: "Core disciplines" } },
+    ],
+    program: [
+      { time: "18:00", title: { ar: "تسجيل الحضور", en: "Attendee registration" } },
+      { time: "18:30", title: { ar: "العرض الفني الرئيسي", en: "Main technical presentation" } },
+      { time: "19:30", title: { ar: "نقاش مفتوح وأسئلة", en: "Open discussion & Q&A" } },
+      { time: "20:00", title: { ar: "توزيع شهادات الحضور", en: "Certificates of attendance" } },
+    ],
   },
   {
+    slug: "engineering-site-visits",
+    kind: "program",
+    cover: "exhibition",
     title: { ar: "زيارات المشاريع الهندسية", en: "Engineering Site Visits" },
     category: { ar: "نشاط ميداني", en: "Field activity" },
     date: { ar: "على مدار العام", en: "Year-round" },
+    venue: { ar: "مشاريع ومصانع ومرافق في المملكة", en: "Projects, plants and facilities across Bahrain" },
     status: "upcoming",
     summary: {
       ar: "زيارات ميدانية لمشاريع البنية التحتية والمصانع والمرافق الحيوية في المملكة لأعضاء الجمعية والطلبة.",
       en: "Field visits to infrastructure projects, plants and critical facilities across the Kingdom for members and students.",
     },
+    description: {
+      ar: "برنامج زيارات ميدانية ينظمه القسم بالتنسيق مع الجهات المالكة للمشاريع والمصانع، ليمنح الأعضاء والطلبة فرصة الاطلاع المباشر على التنفيذ والتشغيل والسلامة في مواقع حقيقية. تشمل الزيارة إحاطة فنية من فريق المشروع، وجولة ميدانية مع مراعاة إجراءات السلامة، وجلسة أسئلة ختامية.",
+      en: "A field visit programme organised with the owners of projects and plants, giving members and students first-hand exposure to construction, operations and safety on real sites. Each visit includes a technical briefing from the project team, a guided tour under full safety procedures, and a closing Q&A.",
+    },
+    highlights: [
+      { ar: "إحاطة فنية من فريق المشروع أو المصنع", en: "Technical briefing from the project or plant team" },
+      { ar: "التزام كامل بإجراءات السلامة ومعدات الوقاية", en: "Full compliance with safety procedures and PPE" },
+      { ar: "مسار مخصص لطلبة الهندسة والخريجين", en: "A dedicated track for engineering students and graduates" },
+    ],
+    audience: {
+      ar: "أعضاء الجمعية، طلبة الهندسة، اللجان الفنية، الشركات المضيفة.",
+      en: "BSE members, engineering students, technical committees and host companies.",
+    },
+    stats: [
+      { value: "15+", label: { ar: "زيارة سنوياً", en: "Visits a year" } },
+      { value: "600+", label: { ar: "مشارك سنوياً", en: "Participants a year" } },
+      { value: "20+", label: { ar: "جهة مضيفة", en: "Host entities" } },
+    ],
+    program: [
+      { time: "08:30", title: { ar: "التجمع والإحاطة الأمنية", en: "Assembly & safety briefing" } },
+      { time: "09:15", title: { ar: "الإحاطة الفنية للمشروع", en: "Project technical briefing" } },
+      { time: "10:00", title: { ar: "الجولة الميدانية", en: "Guided site tour" } },
+      { time: "11:30", title: { ar: "جلسة أسئلة ختامية", en: "Closing Q&A" } },
+    ],
   },
   {
+    slug: "young-engineers-forum",
+    kind: "program",
+    cover: "conference",
     title: { ar: "ملتقى المهندسين الشباب", en: "Young Engineers Forum" },
     category: { ar: "ملتقى", en: "Forum" },
     date: { ar: "سنوياً", en: "Annually" },
+    venue: { ar: "مقر الجمعية، الجفير", en: "BSE Headquarters, Juffair" },
     status: "upcoming",
     summary: {
       ar: "ملتقى يستهدف الخريجين الجدد بجلسات إرشاد مهني ومعرض توظيف مصغر بمشاركة الشركات الهندسية.",
       en: "A forum for fresh graduates with career-guidance sessions and a compact recruitment showcase with engineering firms.",
     },
+    description: {
+      ar: "ملتقى سنوي يستهدف المهندسين الشباب والخريجين الجدد، ويجمعهم مع مسؤولي التوظيف في الشركات الهندسية والمقاولات والمرافق. يشمل البرنامج جلسات إرشاد مهني، وورشة كتابة السيرة الذاتية والمقابلات، ومعرض توظيف مصغر، وقصص نجاح من مهندسين في بداية مسيرتهم.",
+      en: "An annual forum for young engineers and fresh graduates, connecting them with recruiters from engineering, contracting and utility companies. The programme includes career-guidance sessions, a CV and interview workshop, a compact recruitment showcase and success stories from early-career engineers.",
+    },
+    highlights: [
+      { ar: "معرض توظيف مصغر بمشاركة شركات هندسية", en: "Compact recruitment showcase with engineering firms" },
+      { ar: "ورشة السيرة الذاتية والمقابلات الوظيفية", en: "CV and interview skills workshop" },
+      { ar: "إرشاد مهني من مهندسين ذوي خبرة", en: "Career mentoring from experienced engineers" },
+    ],
+    audience: {
+      ar: "الخريجون الجدد، طلبة السنوات النهائية، مسؤولو التوظيف في الشركات.",
+      en: "Fresh graduates, final-year students and company recruiters.",
+    },
+    stats: [
+      { value: "300+", label: { ar: "خريج مشارك", en: "Participating graduates" } },
+      { value: "20+", label: { ar: "شركة موظفة", en: "Recruiting companies" } },
+      { value: "6+", label: { ar: "جلسة إرشاد", en: "Guidance sessions" } },
+    ],
+    program: [
+      { time: "09:00", title: { ar: "التسجيل وافتتاح معرض التوظيف", en: "Registration & recruitment showcase opening" } },
+      { time: "10:00", title: { ar: "جلسة الإرشاد المهني", en: "Career guidance session" } },
+      { time: "11:30", title: { ar: "ورشة السيرة الذاتية والمقابلات", en: "CV & interview workshop" } },
+      { time: "13:00", title: { ar: "لقاءات مباشرة مع الشركات", en: "One-to-one company meetings" } },
+    ],
   },
 ];
+
 
 export type Service = {
   title: Localized;
