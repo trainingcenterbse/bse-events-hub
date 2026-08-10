@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 
-import logo from "@/assets/bse-logo.png.asset.json";
 import { useI18n } from "@/lib/i18n";
 
 export function SiteFooter() {
@@ -23,7 +22,7 @@ export function SiteFooter() {
           <div className="flex items-center gap-3">
             <span className="grid size-14 place-items-center rounded-full bg-primary-foreground/95 ring-1 ring-accent/40">
               <img
-                src={logo.url}
+                src="/favicon.png"
                 alt={t("society")}
                 width={48}
                 height={48}

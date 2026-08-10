@@ -115,8 +115,8 @@ function ExhibitionDetail() {
       </section>
 
       {/* Timeline */}
-      <section className="bg-secondary/50 py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      <section className="band-light relative overflow-hidden py-24">
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
           <SectionHeading
             eyebrow={t("editions")}
             title={t("timeline")}
@@ -126,48 +126,76 @@ function ExhibitionDetail() {
             })}
           />
 
-          <ol className="mt-12 space-y-8 border-s-2 border-primary/15 ps-8">
-            {e.editions.map((ed, i) => (
-              <li key={ed.year} className="relative">
-                <span
-                  className={`absolute -start-[41px] top-1.5 grid size-5 place-items-center rounded-full border-2 ${
-                    i === 0 ? "border-accent bg-accent" : "border-primary/30 bg-background"
-                  }`}
-                />
-                <div className="surface-card p-6">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="font-display text-2xl font-bold text-primary" dir="ltr">
-                      {ed.year}
-                    </span>
-                    <Badge variant={i === 0 ? "default" : "secondary"}>{p(ed.title)}</Badge>
-                    {i === 0 && e.status === "current" && <Badge variant="outline">{t("upcoming")}</Badge>}
+          <div className="mt-16 relative">
+            {/* Timeline line */}
+            <div className="absolute start-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent via-primary/30 to-transparent" />
+            
+            <ol className="space-y-10">
+              {e.editions.map((ed, i) => (
+                <li key={ed.year} className="relative ps-16">
+                  {/* Timeline node */}
+                  <div className={`absolute start-6 top-2 size-5 rounded-full border-4 ${
+                    i === 0 
+                      ? "border-accent bg-accent shadow-lg shadow-accent/30" 
+                      : "border-primary/30 bg-background"
+                  }`} />
+                  
+                  <div className={`showcase-card p-8 ${i === 0 ? "ring-2 ring-accent/20" : ""}`}>
+                    <div className="flex flex-wrap items-start justify-between gap-4">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="font-display text-4xl font-bold text-primary" dir="ltr">
+                          {ed.year}
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge variant={i === 0 ? "default" : "secondary"} className="text-sm">
+                            {p(ed.title)}
+                          </Badge>
+                          {i === 0 && e.status === "current" && (
+                            <Badge variant="outline" className="border-accent text-accent">
+                              {t("upcoming")}
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                      {i === 0 && (
+                        <Badge className="gap-1 bg-accent text-accent-foreground">
+                          <Star className="size-3" />
+                          {p({ ar: "الأحدث", en: "Latest" })}
+                        </Badge>
+                      )}
+                    </div>
+                    
+                    <div className="mt-5 flex items-center gap-2 text-sm text-muted-foreground">
+                      <MapPin className="size-4 text-accent" />
+                      {p(ed.venue)}
+                    </div>
+                    
+                    <p className="mt-4 text-base leading-relaxed text-muted-foreground">{p(ed.note)}</p>
+                    
+                    {ed.url && (
+                      <Button asChild variant="outline" size="sm" className="mt-6 gap-2">
+                        <a href={ed.url} target="_blank" rel="noreferrer">
+                          {t("visitSite")}
+                          <ArrowUpRight className="size-4" />
+                        </a>
+                      </Button>
+                    )}
                   </div>
-                  <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <MapPin className="size-3.5 text-accent" />
-                    {p(ed.venue)}
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p(ed.note)}</p>
-                  {ed.url && (
-                    <a
-                      href={ed.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-accent-foreground"
-                    >
-                      {t("visitSite")}
-                      <ArrowUpRight className="size-4" />
-                    </a>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ol>
+                </li>
+              ))}
+            </ol>
+          </div>
 
-          <p className="mt-10 text-center text-sm text-muted-foreground">
-            {lang === "ar"
-              ? "لطلب أرشيف صور ونتائج النسخ السابقة، تواصل مع فريق القسم."
-              : "For the photo archive and results of previous editions, contact the department team."}
-          </p>
+          <div className="mt-16 rounded-xl bg-secondary/50 p-8 text-center">
+            <p className="text-sm text-muted-foreground">
+              {lang === "ar"
+                ? "لطلب أرشيف صور ونتائج النسخ السابقة، تواصل مع فريق القسم."
+                : "For the photo archive and results of previous editions, contact the department team."}
+            </p>
+            <Button asChild variant="link" className="mt-4">
+              <a href="#contact">{t("contactUs")}</a>
+            </Button>
+          </div>
         </div>
       </section>
     </>

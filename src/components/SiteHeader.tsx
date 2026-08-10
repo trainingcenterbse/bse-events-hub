@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X, Globe } from "lucide-react";
 import { useState } from "react";
 
-import logo from "@/assets/bse-logo.png.asset.json";
 import { useI18n } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 
@@ -25,7 +24,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-20 max-w-7xl items-center gap-4 px-4 sm:px-6">
         <Link to="/" className="flex shrink-0 items-center gap-3" onClick={() => setOpen(false)}>
           <img
-            src={logo.url}
+            src="/favicon.png"
             alt={t("society")}
             width={44}
             height={44}
@@ -35,7 +34,7 @@ export function SiteHeader() {
             <span className="font-display text-xl font-extrabold tracking-tight text-primary">
               {t("brand")}
             </span>
-            <span className="text-[12px] font-semibold text-foreground/70">{t("brandSub")}</span>
+            <span className="text-[13px] font-bold text-foreground/80">{t("brandSub")}</span>
           </span>
         </Link>
 
@@ -45,7 +44,7 @@ export function SiteHeader() {
               key={l.to}
               to={l.to}
               activeOptions={{ exact: l.to === "/" }}
-              className="font-display rounded-md px-3 py-2 text-[15px] font-semibold text-foreground/80 transition-colors hover:bg-secondary hover:text-primary data-[status=active]:bg-secondary data-[status=active]:text-primary"
+              className="font-display rounded-md px-4 py-2 text-[16px] font-bold text-foreground/90 transition-colors hover:bg-secondary hover:text-primary data-[status=active]:bg-secondary data-[status=active]:text-primary"
             >
               {l.label}
             </Link>

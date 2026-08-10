@@ -179,45 +179,49 @@ function Home() {
       </section>
 
       {/* Pillar cards — image led */}
-      <section className="relative overflow-hidden bg-secondary/50 py-24">
-        <div className="kufic-grid absolute inset-0" aria-hidden />
+      <section className="band-blue relative overflow-hidden py-24">
+        <div className="dot-grid-light absolute inset-0" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-          <SectionHeading
-            eyebrow={t("explore")}
-            title={p({ ar: "أقسام الموقع", en: "What you'll find here" })}
-            description={p({
-              ar: "خمس منصات رئيسية وما تقدمه لك كراعٍ أو عارض أو حاضر.",
-              en: "Five main areas and what each offers you as a sponsor, exhibitor or attendee.",
-            })}
-          />
+          <div className="text-primary-foreground">
+            <SectionHeading
+              eyebrow={t("explore")}
+              title={p({ ar: "أقسام الموقع", en: "What you'll find here" })}
+              description={p({
+                ar: "خمس منصات رئيسية وما تقدمه لك كراعٍ أو عارض أو حاضر.",
+                en: "Five main areas and what each offers you as a sponsor, exhibitor or attendee.",
+              })}
+            />
+          </div>
           <div className="mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
             {cards.map((c, i) => (
               <Reveal key={c.to} delay={(i % 3) * 0.08} className="h-full">
                 <Link to={c.to} className="showcase-card group flex h-full flex-col bg-card">
-                  <div className="relative h-40 overflow-hidden">
+                  <div className="relative h-48 overflow-hidden">
                     <img
                       src={c.image}
                       alt={c.title}
                       width={1600}
                       height={1000}
                       loading="lazy"
-                      className="absolute inset-0 size-full object-cover"
+                      className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="veil absolute inset-0" />
-                    <span className="absolute bottom-4 start-5 grid size-11 place-items-center rounded-xl bg-background/20 text-primary-foreground backdrop-blur-md">
-                      <c.icon className="size-5" />
+                    <span className="absolute bottom-4 start-5 grid size-12 place-items-center rounded-xl bg-white/20 text-white backdrop-blur-md">
+                      <c.icon className="size-6" />
                     </span>
-                    <Badge className="absolute bottom-4 end-5" variant="default">
+                    <Badge className="absolute bottom-4 end-5 border-white/30 bg-white/10 text-white backdrop-blur-sm" variant="default">
                       {c.count}+
                     </Badge>
                   </div>
                   <div className="flex flex-1 flex-col p-6">
-                    <h3 className="font-display text-lg font-bold text-primary">{c.title}</h3>
+                    <h3 className="font-display text-xl font-bold text-primary">{c.title}</h3>
                     <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{c.text}</p>
-                    <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                      {t("details")}
-                      <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5" />
-                    </span>
+                    <Button asChild variant="outline" size="sm" className="mt-5 w-full gap-2">
+                      <span>
+                        {t("details")}
+                        <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5" />
+                      </span>
+                    </Button>
                   </div>
                 </Link>
               </Reveal>
@@ -227,69 +231,71 @@ function Home() {
       </section>
 
       {/* Featured exhibitions */}
-      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6">
-        <SectionHeading
-          eyebrow={t("ourExhibitions")}
-          title={p({ ar: "معارض تملكها الجمعية", en: "Exhibitions owned by BSE" })}
-          description={p({
-            ar: "منصتان رئيسيتان لهما نسخ سنوية موثقة وصفحات خاصة لكل نسخة.",
-            en: "Two flagship platforms with documented annual editions and a page for every edition.",
-          })}
-          action={
-            <Button asChild variant="outline">
-              <Link to="/exhibitions">{t("viewAll")}</Link>
-            </Button>
-          }
-        />
-        <div className="mt-14 grid gap-7 lg:grid-cols-2">
-          {exhibitions
-            .filter((e) => e.owned)
-            .map((e, i) => (
-              <Reveal key={e.slug} delay={i * 0.1} className="h-full">
-                <Link
-                  to="/exhibitions/$slug"
-                  params={{ slug: e.slug }}
-                  className="showcase-card group flex h-full flex-col bg-card"
-                >
-                  <div className="relative h-56 overflow-hidden">
-                    <img
-                      src={i === 0 ? seminar : heroExhibition}
-                      alt={p(e.name)}
-                      width={1600}
-                      height={1000}
-                      loading="lazy"
-                      className="absolute inset-0 size-full object-cover"
-                    />
-                    <div className="veil absolute inset-0" />
-                    <div className="absolute inset-x-6 bottom-5">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <Badge>{t("annual")}</Badge>
-                        <span className="rounded-full bg-background/15 px-2.5 py-1 text-[11px] font-medium text-primary-foreground backdrop-blur-sm">
-                          {p(e.sector)}
-                        </span>
-                        <span className="text-[11px] text-primary-foreground/70" dir="ltr">
-                          {lang === "ar" ? `منذ ${e.started}` : `since ${e.started}`}
-                        </span>
-                      </div>
-                      <h3 className="mt-3 font-display text-xl font-bold text-primary-foreground">
-                        {p(e.name)}
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="flex flex-1 flex-col p-7">
-                    <p className="flex-1 text-sm leading-relaxed text-muted-foreground">{p(e.short)}</p>
-                    <div className="mt-6 grid grid-cols-3 gap-3 border-t border-border pt-5">
-                      {e.stats.map((s) => (
-                        <div key={s.value}>
-                          <CountUp value={s.value} className="numeral block text-3xl font-bold text-primary" />
-                          <p className="mt-2 text-xs text-muted-foreground">{p(s.label)}</p>
+      <section className="band-light relative overflow-hidden py-24">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+          <SectionHeading
+            eyebrow={t("ourExhibitions")}
+            title={p({ ar: "معارض تملكها الجمعية", en: "Exhibitions owned by BSE" })}
+            description={p({
+              ar: "منصتان رئيسيتان لهما نسخ سنوية موثقة وصفحات خاصة لكل نسخة.",
+              en: "Two flagship platforms with documented annual editions and a page for every edition.",
+            })}
+            action={
+              <Button asChild variant="outline">
+                <Link to="/exhibitions">{t("viewAll")}</Link>
+              </Button>
+            }
+          />
+          <div className="mt-14 grid gap-7 lg:grid-cols-2">
+            {exhibitions
+              .filter((e) => e.owned)
+              .map((e, i) => (
+                <Reveal key={e.slug} delay={i * 0.1} className="h-full">
+                  <Link
+                    to="/exhibitions/$slug"
+                    params={{ slug: e.slug }}
+                    className="showcase-card group flex h-full flex-col bg-card"
+                  >
+                    <div className="relative h-56 overflow-hidden">
+                      <img
+                        src={i === 0 ? seminar : heroExhibition}
+                        alt={p(e.name)}
+                        width={1600}
+                        height={1000}
+                        loading="lazy"
+                        className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="veil absolute inset-0" />
+                      <div className="absolute inset-x-6 bottom-5">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Badge className="border-white/20 bg-white/10 text-white backdrop-blur-sm">{t("annual")}</Badge>
+                          <span className="rounded-full bg-background/15 px-2.5 py-1 text-[11px] font-medium text-primary-foreground backdrop-blur-sm">
+                            {p(e.sector)}
+                          </span>
+                          <span className="text-[11px] text-primary-foreground/70" dir="ltr">
+                            {lang === "ar" ? `منذ ${e.started}` : `since ${e.started}`}
+                          </span>
                         </div>
-                      ))}
+                        <h3 className="mt-3 font-display text-xl font-bold text-primary-foreground">
+                          {p(e.name)}
+                        </h3>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
+                    <div className="flex flex-1 flex-col p-7">
+                      <p className="flex-1 text-sm leading-relaxed text-muted-foreground">{p(e.short)}</p>
+                      <div className="mt-6 grid grid-cols-3 gap-3 border-t border-border pt-5">
+                        {e.stats.map((s) => (
+                          <div key={s.value}>
+                            <CountUp value={s.value} className="numeral block text-3xl font-bold text-primary" />
+                            <p className="mt-2 text-xs text-muted-foreground">{p(s.label)}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </Link>
+                </Reveal>
+              ))}
+          </div>
         </div>
       </section>
 

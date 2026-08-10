@@ -8,6 +8,7 @@ import teamWork from "@/assets/team-work.jpg";
 import { CountUp, Reveal } from "@/components/Reveal";
 import { PageHero, SectionHeading } from "@/components/Sections";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { exhibitions } from "@/data/content";
 import { useI18n } from "@/lib/i18n";
 
@@ -67,15 +68,17 @@ function ExhibitionCard({ slug, index }: { slug: string; index: number }) {
       <div className="flex flex-1 flex-col p-6">
         <h3 className="font-display text-lg font-bold text-primary">{p(e.name)}</h3>
         <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p(e.short)}</p>
-        <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-sm">
-          <span className="flex items-center gap-1.5 text-muted-foreground">
+        <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
+          <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
             <LayoutGrid className="size-3.5 text-accent" />
             {e.editions.length} {t("editions")}
           </span>
-          <span className="inline-flex items-center gap-1 font-semibold text-primary">
-            {t("timeline")}
-            <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5" />
-          </span>
+          <Button asChild variant="outline" size="sm" className="gap-1.5">
+            <span>
+              {t("timeline")}
+              <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5" />
+            </span>
+          </Button>
         </div>
       </div>
     </Link>

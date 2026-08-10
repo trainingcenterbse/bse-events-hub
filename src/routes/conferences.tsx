@@ -1,8 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
+import { ArrowUpRight, CalendarDays, MapPin, Tag } from "lucide-react";
 import { useState } from "react";
 
 import heroConference from "@/assets/hero-conference.jpg";
+import heroSponsors from "@/assets/hero-sponsors.jpg";
+import heroEvents from "@/assets/hero-events.jpg";
+import heroExhibition from "@/assets/hero-exhibition.jpg";
+import seminar from "@/assets/seminar.jpg";
+import teamWork from "@/assets/team-work.jpg";
 import { CountUp, Reveal } from "@/components/Reveal";
 import { PageHero, SectionHeading } from "@/components/Sections";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +33,8 @@ export const Route = createFileRoute("/conferences")({
   }),
   component: Conferences,
 });
+
+const covers = [heroSponsors, heroEvents, teamWork, heroConference, seminar, heroExhibition];
 
 const impact = [
   { value: "26", label: { ar: "نسخة من الملتقى الهندسي الخليجي", en: "Editions of the Gulf Engineering Forum" } },
@@ -94,60 +101,96 @@ function Conferences() {
           }
         />
 
-        <div className="mt-14 space-y-7">
-          {list.map((c, i) => (
-            <Reveal key={c.title.en} delay={i * 0.06}>
-              <article className="surface-card relative overflow-hidden p-8 lg:flex lg:items-stretch lg:gap-10 lg:p-10">
-                <span
-                  className="ghost-numeral pointer-events-none absolute -top-4 end-6 text-[7rem] sm:text-[9rem]"
-                  aria-hidden
-                >
-                  {p(c.date)}
-                </span>
-                <div className="relative flex shrink-0 flex-col items-start gap-3 lg:w-56">
-                  <Badge variant={c.status === "upcoming" ? "default" : "secondary"}>
-                    {c.status === "upcoming" ? t("upcoming") : t("past")}
-                  </Badge>
-                  <p className="numeral text-5xl font-bold text-primary" dir="ltr">
-                    {p(c.date)}
-                  </p>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-accent-foreground">
-                    {p(c.edition)}
-                  </p>
-                  <span className="gold-rule mt-2 hidden h-px w-16 lg:block" aria-hidden />
-                </div>
-                <div className="relative mt-6 flex-1 lg:mt-0 lg:border-s lg:border-border lg:ps-10">
-                  <h3 className="font-display text-2xl font-bold text-primary">{p(c.title)}</h3>
-                  <p className="mt-4 max-w-3xl leading-relaxed text-muted-foreground">{p(c.summary)}</p>
-                  <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1.5">
-                      <MapPin className="size-4 text-accent" />
-                      {p(c.venue)}
+        <div className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+          {list.map((c, i) => {
+            const staticRoute = c.slug === "energy-management-gulf-forum-26" ? "/conferences/energy-management-gulf-forum-26" :
+                                c.slug === "maintcon-2024" ? "/conferences/maintcon-2024" :
+                                c.slug === "arab-ict-conference-7" ? "/conferences/arab-ict-conference-7" :
+                                c.slug === "middle-east-corrosion-18" ? "/conferences/middle-east-corrosion-18" :
+                                "/conferences/$slug";
+            
+            return (
+              <Reveal key={c.title.en} delay={(i % 3) * 0.08} className="h-full">
+                {staticRoute === "/conferences/$slug" ? (
+                  <Link to="/conferences/$slug" params={{ slug: c.slug }} className="showcase-card group flex h-full flex-col bg-card">
+                    <div className="relative h-52 overflow-hidden">
+                      <img
+                        src={covers[i % covers.length]!}
+                        alt={p(c.title)}
+                        width={1600}
+                        height={1000}
+                        loading="lazy"
+                        className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="veil absolute inset-0" />
+                      <span className="numeral absolute bottom-4 end-5 text-4xl font-bold text-primary-foreground/25">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div className="absolute bottom-4 start-5 flex flex-wrap items-center gap-2">
+                        <Badge variant={c.status === "upcoming" ? "default" : "secondary"}>
+                          {c.status === "upcoming" ? t("upcoming") : t("past")}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="flex flex-1 flex-col p-6">
+                      <h3 className="font-display text-lg font-bold text-primary">{p(c.title)}</h3>
+                      <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p(c.summary)}</p>
+                      <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
+                        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <CalendarDays className="size-3.5 text-accent" />
+                          {p(c.date)}
+                        </span>
+                        <Button asChild variant="outline" size="sm" className="gap-1.5">
+                          <span>
+                            {t("details")}
+                            <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5" />
+                          </span>
+                        </Button>
+                      </div>
+                    </div>
+                  </Link>
+                ) : (
+                  <Link to={staticRoute} className="showcase-card group flex h-full flex-col bg-card">
+                  <div className="relative h-52 overflow-hidden">
+                    <img
+                      src={covers[i % covers.length]!}
+                      alt={p(c.title)}
+                      width={1600}
+                      height={1000}
+                      loading="lazy"
+                      className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="veil absolute inset-0" />
+                    <span className="numeral absolute bottom-4 end-5 text-4xl font-bold text-primary-foreground/25">
+                      {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="flex items-center gap-1.5">
-                      <CalendarDays className="size-4 text-accent" />
-                      {p(c.date)}
-                    </span>
-                  </div>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {c.tracks.map((tp) => (
-                      <Badge key={tp.title.en} variant="outline">
-                        {p(tp.title)}
+                    <div className="absolute bottom-4 start-5 flex flex-wrap items-center gap-2">
+                      <Badge variant={c.status === "upcoming" ? "default" : "secondary"}>
+                        {c.status === "upcoming" ? t("upcoming") : t("past")}
                       </Badge>
-                    ))}
+                    </div>
                   </div>
-                  {c.url && (
-                    <Button asChild size="sm" className="mt-6 gap-1.5">
-                      <a href={c.url} target="_blank" rel="noreferrer">
-                        {t("details")}
-                        <ArrowUpRight className="size-4" />
-                      </a>
-                    </Button>
-                  )}
-                </div>
-              </article>
-            </Reveal>
-          ))}
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="font-display text-lg font-bold text-primary">{p(c.title)}</h3>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p(c.summary)}</p>
+                    <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
+                      <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <CalendarDays className="size-3.5 text-accent" />
+                        {p(c.date)}
+                      </span>
+                      <Button asChild variant="outline" size="sm" className="gap-1.5">
+                        <span>
+                          {t("details")}
+                          <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5" />
+                        </span>
+                      </Button>
+                    </div>
+                  </div>
+                </Link>
+                )}
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 

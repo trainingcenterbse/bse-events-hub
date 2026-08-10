@@ -68,47 +68,47 @@ function Team() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeading
             eyebrow={t("ourLeadership")}
-            title={p({ ar: "المسؤولون عن تنفيذ فعالياتنا", en: "The people behind our events" })}
+            title={p({ ar: "القيادة التنفيذية", en: "Executive Leadership" })}
             description={p({
               ar: "ستة مسؤولين يقودون وحدات القسم، ولكل منهم نطاق واضح من المسؤولية وقناة تواصل مباشرة للرعاة والعارضين.",
               en: "Six leads run the department's units, each with a clear remit and a direct contact channel for sponsors and exhibitors.",
             })}
           />
 
-          <div className="mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {leadership.map((m, i) => (
               <Reveal key={m.email} delay={(i % 3) * 0.08} className="h-full">
                 <article className="showcase-card group flex h-full flex-col bg-card">
-                  <div className="relative aspect-4/5 overflow-hidden">
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-t-2xl">
                     <img
                       src={personPhotos[m.photo]}
                       alt={p(m.name)}
                       width={768}
                       height={960}
                       loading="lazy"
-                      className="absolute inset-0 size-full object-cover object-top"
+                      className="absolute inset-0 size-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="veil absolute inset-0" />
-                    <div className="absolute inset-x-5 bottom-5">
-                      <Badge variant="secondary" className="mb-2">
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6">
+                      <Badge variant="secondary" className="mb-3 border-white/20 bg-white/10 text-white backdrop-blur-sm">
                         {p(m.unit)}
                       </Badge>
-                      <h3 className="font-display text-xl font-bold text-primary-foreground">
+                      <h3 className="font-display text-2xl font-bold text-white">
                         {p(m.name)}
                       </h3>
-                      <p className="mt-1 text-sm font-semibold text-accent">{p(m.role)}</p>
+                      <p className="mt-1 text-base font-semibold text-accent">{p(m.role)}</p>
                     </div>
                   </div>
                   <div className="flex flex-1 flex-col p-6">
                     <p className="flex-1 text-sm leading-relaxed text-muted-foreground">{p(m.bio)}</p>
                     <div className="mt-5 flex flex-wrap gap-2">
                       {m.focus.map((f) => (
-                        <Badge key={f.en} variant="outline">
+                        <Badge key={f.en} variant="outline" className="border-primary/20 bg-primary/5">
                           {p(f)}
                         </Badge>
                       ))}
                     </div>
-                    <Button asChild variant="outline" size="sm" className="mt-6 w-fit gap-1.5">
+                    <Button asChild variant="default" size="sm" className="mt-6 w-full gap-2">
                       <a href={`mailto:${m.email}`}>
                         <Mail className="size-4" />
                         {t("contactPerson")}
