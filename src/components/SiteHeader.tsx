@@ -16,6 +16,7 @@ export function SiteHeader() {
     { to: "/conferences", label: t("navConferences") },
     { to: "/exhibitions", label: t("navExhibitions") },
     { to: "/events", label: t("navEvents") },
+    { to: "/venue-rental", label: t("navVenueRental") },
     { to: "/sponsors", label: t("navSponsors") },
   ] as const;
 

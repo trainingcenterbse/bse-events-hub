@@ -34,6 +34,7 @@ const dictionary = {
   navConferences: { ar: "المؤتمرات", en: "Conferences" },
   navExhibitions: { ar: "المعارض", en: "Exhibitions" },
   navEvents: { ar: "الفعاليات", en: "Events" },
+  navVenueRental: { ar: "تأجير القاعات", en: "Venue Rental" },
   navSponsors: { ar: "الرعاة", en: "Sponsors" },
   sponsorTiers: { ar: "مستويات الرعاية", en: "Sponsorship tiers" },
   ourPartners: { ar: "شركاؤنا ورعاتنا", en: "Our partners & sponsors" },

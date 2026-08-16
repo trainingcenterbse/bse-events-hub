@@ -15,6 +15,7 @@ import { Route as ConferencesRouteImport } from './routes/conferences'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as VenueRentalRouteImport } from './routes/venue-rental'
 import { Route as ConferencesSlugRouteImport } from './routes/conferences/$slug'
 import { Route as ConferencesArabIctConference7RouteImport } from './routes/conferences/arab-ict-conference-7'
 import { Route as ConferencesEnergyManagementGulfForum26RouteImport } from './routes/conferences/energy-management-gulf-forum-26'
@@ -56,6 +57,11 @@ const SponsorsRoute = SponsorsRouteImport.update({
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VenueRentalRoute = VenueRentalRouteImport.update({
+  id: '/venue-rental',
+  path: '/venue-rental',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConferencesSlugRoute = ConferencesSlugRouteImport.update({
@@ -133,6 +139,7 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRouteWithChildren
   '/sponsors': typeof SponsorsRoute
   '/team': typeof TeamRoute
+  '/venue-rental': typeof VenueRentalRoute
   '/conferences/$slug': typeof ConferencesSlugRoute
   '/conferences/arab-ict-conference-7': typeof ConferencesArabIctConference7Route
   '/conferences/energy-management-gulf-forum-26': typeof ConferencesEnergyManagementGulfForum26Route
@@ -153,6 +160,7 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRouteWithChildren
   '/sponsors': typeof SponsorsRoute
   '/team': typeof TeamRoute
+  '/venue-rental': typeof VenueRentalRoute
   '/conferences/$slug': typeof ConferencesSlugRoute
   '/conferences/arab-ict-conference-7': typeof ConferencesArabIctConference7Route
   '/conferences/energy-management-gulf-forum-26': typeof ConferencesEnergyManagementGulfForum26Route
@@ -174,6 +182,7 @@ export interface FileRoutesById {
   '/events': typeof EventsRouteWithChildren
   '/sponsors': typeof SponsorsRoute
   '/team': typeof TeamRoute
+  '/venue-rental': typeof VenueRentalRoute
   '/conferences/$slug': typeof ConferencesSlugRoute
   '/conferences/arab-ict-conference-7': typeof ConferencesArabIctConference7Route
   '/conferences/energy-management-gulf-forum-26': typeof ConferencesEnergyManagementGulfForum26Route
@@ -196,6 +205,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/sponsors'
     | '/team'
+    | '/venue-rental'
     | '/conferences/$slug'
     | '/conferences/arab-ict-conference-7'
     | '/conferences/energy-management-gulf-forum-26'
@@ -216,6 +226,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/sponsors'
     | '/team'
+    | '/venue-rental'
     | '/conferences/$slug'
     | '/conferences/arab-ict-conference-7'
     | '/conferences/energy-management-gulf-forum-26'
@@ -236,6 +247,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/sponsors'
     | '/team'
+    | '/venue-rental'
     | '/conferences/$slug'
     | '/conferences/arab-ict-conference-7'
     | '/conferences/energy-management-gulf-forum-26'
@@ -257,6 +269,7 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRouteWithChildren
   SponsorsRoute: typeof SponsorsRoute
   TeamRoute: typeof TeamRoute
+  VenueRentalRoute: typeof VenueRentalRoute
   ExhibitionsSlugRoute: typeof ExhibitionsSlugRoute
   ExhibitionsIndexRoute: typeof ExhibitionsIndexRoute
 }
@@ -303,6 +316,13 @@ declare module '@tanstack/react-router' {
       path: '/team'
       fullPath: '/team'
       preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/venue-rental': {
+      id: '/venue-rental'
+      path: '/venue-rental'
+      fullPath: '/venue-rental'
+      preLoaderRoute: typeof VenueRentalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/conferences/$slug': {
@@ -439,6 +459,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRouteWithChildren,
   SponsorsRoute: SponsorsRoute,
   TeamRoute: TeamRoute,
+  VenueRentalRoute: VenueRentalRoute,
   ExhibitionsSlugRoute: ExhibitionsSlugRoute,
   ExhibitionsIndexRoute: ExhibitionsIndexRoute,
 }
