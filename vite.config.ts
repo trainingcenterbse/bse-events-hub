@@ -6,6 +6,12 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+/* 
+ * Developed by Ultra Cube Team
+ * www.ucubetech.com
+ * https://github.com/ultra-cube
+ */
+
 export default defineConfig({
   server: {
     host: '0.0.0.0',

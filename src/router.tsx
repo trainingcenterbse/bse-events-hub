@@ -2,6 +2,12 @@ import { QueryClient } from "@tanstack/react-query";
 import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
+/* 
+ * Developed by Ultra Cube Team
+ * www.ucubetech.com
+ * https://github.com/ultra-cube
+ */
+
 export const getRouter = () => {
   const queryClient = new QueryClient();
 

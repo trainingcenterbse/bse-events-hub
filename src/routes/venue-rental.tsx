@@ -9,6 +9,12 @@ import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/Reveal";
 import { useI18n } from "@/lib/i18n";
 
+/* 
+ * Developed by Ultra Cube Team
+ * www.ucubetech.com
+ * https://github.com/ultra-cube
+ */
+
 export const Route = createFileRoute("/venue-rental")({
   head: () => ({
     meta: [

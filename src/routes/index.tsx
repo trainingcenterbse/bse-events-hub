@@ -16,6 +16,11 @@ import { audiences, conferences, events, exhibitions, services, stats } from "@/
 import { partners } from "@/data/sponsors";
 import { useI18n } from "@/lib/i18n";
 
+/* 
+ * Developed by Ultra Cube Team
+ * www.ucubetech.com
+ * https://github.com/ultra-cube
+ */
 
 export const Route = createFileRoute("/")({
   head: () => ({

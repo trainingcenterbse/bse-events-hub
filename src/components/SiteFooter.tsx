@@ -3,6 +3,12 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 import { useI18n } from "@/lib/i18n";
 
+/* 
+ * Developed by Ultra Cube Team
+ * www.ucubetech.com
+ * https://github.com/ultra-cube
+ */
+
 export function SiteFooter() {
   const { t, lang } = useI18n();
 

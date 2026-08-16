@@ -5,6 +5,12 @@ import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 
+/* 
+ * Developed by Ultra Cube Team
+ * www.ucubetech.com
+ * https://github.com/ultra-cube
+ */
+
 export function SiteHeader() {
   const { t, toggle } = useI18n();
   const [open, setOpen] = useState(false);

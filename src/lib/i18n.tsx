@@ -8,6 +8,12 @@ import {
   type ReactNode,
 } from "react";
 
+/* 
+ * Developed by Ultra Cube Team
+ * www.ucubetech.com
+ * https://github.com/ultra-cube
+ */
+
 export type Lang = "ar" | "en";
 export type Localized = { ar: string; en: string };
 
