@@ -11,16 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as ConferencesRouteImport } from './routes/conferences'
-import { Route as EventsRouteImport } from './routes/events'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as VenueRentalRouteImport } from './routes/venue-rental'
+import { Route as ConferencesIndexRouteImport } from './routes/conferences/index'
 import { Route as ConferencesSlugRouteImport } from './routes/conferences/$slug'
 import { Route as ConferencesArabIctConference7RouteImport } from './routes/conferences/arab-ict-conference-7'
 import { Route as ConferencesEnergyManagementGulfForum26RouteImport } from './routes/conferences/energy-management-gulf-forum-26'
 import { Route as ConferencesMaintcon2024RouteImport } from './routes/conferences/maintcon-2024'
 import { Route as ConferencesMiddleEastCorrosion18RouteImport } from './routes/conferences/middle-east-corrosion-18'
+import { Route as EventsIndexRouteImport } from './routes/events/index'
 import { Route as EventsSlugRouteImport } from './routes/events/$slug'
 import { Route as EventsAnnualGeneralAssemblyRouteImport } from './routes/events/annual-general-assembly'
 import { Route as EventsAnnualRamadanGhabgaRouteImport } from './routes/events/annual-ramadan-ghabga'
@@ -39,16 +39,6 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConferencesRoute = ConferencesRouteImport.update({
-  id: '/conferences',
-  path: '/conferences',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EventsRoute = EventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SponsorsRoute = SponsorsRouteImport.update({
   id: '/sponsors',
   path: '/sponsors',
@@ -62,6 +52,11 @@ const TeamRoute = TeamRouteImport.update({
 const VenueRentalRoute = VenueRentalRouteImport.update({
   id: '/venue-rental',
   path: '/venue-rental',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConferencesIndexRoute = ConferencesIndexRouteImport.update({
+  id: '/conferences/',
+  path: '/conferences/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConferencesSlugRoute = ConferencesSlugRouteImport.update({
@@ -92,6 +87,11 @@ const ConferencesMiddleEastCorrosion18Route =
     path: '/middle-east-corrosion-18',
     getParentRoute: () => ConferencesRoute,
   } as any)
+const EventsIndexRoute = EventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventsSlugRoute = EventsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -135,8 +135,6 @@ const ExhibitionsSlugRoute = ExhibitionsSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/conferences': typeof ConferencesRouteWithChildren
-  '/events': typeof EventsRouteWithChildren
   '/sponsors': typeof SponsorsRoute
   '/team': typeof TeamRoute
   '/venue-rental': typeof VenueRentalRoute
@@ -151,13 +149,13 @@ export interface FileRoutesByFullPath {
   '/events/bahraini-engineer-day': typeof EventsBahrainiEngineerDayRoute
   '/events/volunteers-recognition': typeof EventsVolunteersRecognitionRoute
   '/exhibitions/$slug': typeof ExhibitionsSlugRoute
+  '/conferences/': typeof ConferencesIndexRoute
+  '/events/': typeof EventsIndexRoute
   '/exhibitions/': typeof ExhibitionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/conferences': typeof ConferencesRouteWithChildren
-  '/events': typeof EventsRouteWithChildren
   '/sponsors': typeof SponsorsRoute
   '/team': typeof TeamRoute
   '/venue-rental': typeof VenueRentalRoute
@@ -172,14 +170,14 @@ export interface FileRoutesByTo {
   '/events/bahraini-engineer-day': typeof EventsBahrainiEngineerDayRoute
   '/events/volunteers-recognition': typeof EventsVolunteersRecognitionRoute
   '/exhibitions/$slug': typeof ExhibitionsSlugRoute
+  '/conferences': typeof ConferencesIndexRoute
+  '/events': typeof EventsIndexRoute
   '/exhibitions': typeof ExhibitionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/conferences': typeof ConferencesRouteWithChildren
-  '/events': typeof EventsRouteWithChildren
   '/sponsors': typeof SponsorsRoute
   '/team': typeof TeamRoute
   '/venue-rental': typeof VenueRentalRoute
@@ -194,6 +192,8 @@ export interface FileRoutesById {
   '/events/bahraini-engineer-day': typeof EventsBahrainiEngineerDayRoute
   '/events/volunteers-recognition': typeof EventsVolunteersRecognitionRoute
   '/exhibitions/$slug': typeof ExhibitionsSlugRoute
+  '/conferences/': typeof ConferencesIndexRoute
+  '/events/': typeof EventsIndexRoute
   '/exhibitions/': typeof ExhibitionsIndexRoute
 }
 export interface FileRouteTypes {
@@ -201,8 +201,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/conferences'
-    | '/events'
     | '/sponsors'
     | '/team'
     | '/venue-rental'
@@ -217,13 +215,13 @@ export interface FileRouteTypes {
     | '/events/bahraini-engineer-day'
     | '/events/volunteers-recognition'
     | '/exhibitions/$slug'
+    | '/conferences/'
+    | '/events/'
     | '/exhibitions/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/conferences'
-    | '/events'
     | '/sponsors'
     | '/team'
     | '/venue-rental'
@@ -238,13 +236,13 @@ export interface FileRouteTypes {
     | '/events/bahraini-engineer-day'
     | '/events/volunteers-recognition'
     | '/exhibitions/$slug'
+    | '/conferences'
+    | '/events'
     | '/exhibitions'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/conferences'
-    | '/events'
     | '/sponsors'
     | '/team'
     | '/venue-rental'
@@ -259,18 +257,20 @@ export interface FileRouteTypes {
     | '/events/bahraini-engineer-day'
     | '/events/volunteers-recognition'
     | '/exhibitions/$slug'
+    | '/conferences/'
+    | '/events/'
     | '/exhibitions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  ConferencesRoute: typeof ConferencesRouteWithChildren
-  EventsRoute: typeof EventsRouteWithChildren
   SponsorsRoute: typeof SponsorsRoute
   TeamRoute: typeof TeamRoute
   VenueRentalRoute: typeof VenueRentalRoute
   ExhibitionsSlugRoute: typeof ExhibitionsSlugRoute
+  ConferencesIndexRoute: typeof ConferencesIndexRoute
+  EventsIndexRoute: typeof EventsIndexRoute
   ExhibitionsIndexRoute: typeof ExhibitionsIndexRoute
 }
 
@@ -288,20 +288,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/conferences': {
-      id: '/conferences'
-      path: '/conferences'
-      fullPath: '/conferences'
-      preLoaderRoute: typeof ConferencesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sponsors': {
@@ -323,6 +309,13 @@ declare module '@tanstack/react-router' {
       path: '/venue-rental'
       fullPath: '/venue-rental'
       preLoaderRoute: typeof VenueRentalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conferences/': {
+      id: '/conferences/'
+      path: '/conferences'
+      fullPath: '/conferences/'
+      preLoaderRoute: typeof ConferencesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/conferences/$slug': {
@@ -359,6 +352,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/conferences/middle-east-corrosion-18'
       preLoaderRoute: typeof ConferencesMiddleEastCorrosion18RouteImport
       parentRoute: typeof ConferencesRoute
+    }
+    '/events/': {
+      id: '/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof EventsIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/events/$slug': {
       id: '/events/$slug'
@@ -412,55 +412,15 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface ConferencesRouteChildren {
-  ConferencesSlugRoute: typeof ConferencesSlugRoute
-  ConferencesArabIctConference7Route: typeof ConferencesArabIctConference7Route
-  ConferencesEnergyManagementGulfForum26Route: typeof ConferencesEnergyManagementGulfForum26Route
-  ConferencesMaintcon2024Route: typeof ConferencesMaintcon2024Route
-  ConferencesMiddleEastCorrosion18Route: typeof ConferencesMiddleEastCorrosion18Route
-}
-
-const ConferencesRouteChildren: ConferencesRouteChildren = {
-  ConferencesSlugRoute: ConferencesSlugRoute,
-  ConferencesArabIctConference7Route: ConferencesArabIctConference7Route,
-  ConferencesEnergyManagementGulfForum26Route:
-    ConferencesEnergyManagementGulfForum26Route,
-  ConferencesMaintcon2024Route: ConferencesMaintcon2024Route,
-  ConferencesMiddleEastCorrosion18Route: ConferencesMiddleEastCorrosion18Route,
-}
-
-const ConferencesRouteWithChildren = ConferencesRoute._addFileChildren(
-  ConferencesRouteChildren,
-)
-
-interface EventsRouteChildren {
-  EventsSlugRoute: typeof EventsSlugRoute
-  EventsAnnualGeneralAssemblyRoute: typeof EventsAnnualGeneralAssemblyRoute
-  EventsAnnualRamadanGhabgaRoute: typeof EventsAnnualRamadanGhabgaRoute
-  EventsBahrainiEngineerDayRoute: typeof EventsBahrainiEngineerDayRoute
-  EventsVolunteersRecognitionRoute: typeof EventsVolunteersRecognitionRoute
-}
-
-const EventsRouteChildren: EventsRouteChildren = {
-  EventsSlugRoute: EventsSlugRoute,
-  EventsAnnualGeneralAssemblyRoute: EventsAnnualGeneralAssemblyRoute,
-  EventsAnnualRamadanGhabgaRoute: EventsAnnualRamadanGhabgaRoute,
-  EventsBahrainiEngineerDayRoute: EventsBahrainiEngineerDayRoute,
-  EventsVolunteersRecognitionRoute: EventsVolunteersRecognitionRoute,
-}
-
-const EventsRouteWithChildren =
-  EventsRoute._addFileChildren(EventsRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  ConferencesRoute: ConferencesRouteWithChildren,
-  EventsRoute: EventsRouteWithChildren,
   SponsorsRoute: SponsorsRoute,
   TeamRoute: TeamRoute,
   VenueRentalRoute: VenueRentalRoute,
   ExhibitionsSlugRoute: ExhibitionsSlugRoute,
+  ConferencesIndexRoute: ConferencesIndexRoute,
+  EventsIndexRoute: EventsIndexRoute,
   ExhibitionsIndexRoute: ExhibitionsIndexRoute,
 }
 export const routeTree = rootRouteImport

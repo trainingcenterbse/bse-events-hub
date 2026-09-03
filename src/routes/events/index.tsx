@@ -15,7 +15,7 @@ import { events } from "@/data/content";
 import { eventCovers } from "@/lib/presentation";
 import { useI18n } from "@/lib/i18n";
 
-export const Route = createFileRoute("/events")({
+export const Route = createFileRoute("/events/")({
   head: () => ({
     meta: [
       { title: "الفعاليات والأنشطة والندوات | BSE Event" },
