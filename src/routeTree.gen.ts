@@ -60,32 +60,32 @@ const ConferencesIndexRoute = ConferencesIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConferencesSlugRoute = ConferencesSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ConferencesRoute,
+  id: '/conferences/$slug',
+  path: '/conferences/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ConferencesArabIctConference7Route =
   ConferencesArabIctConference7RouteImport.update({
-    id: '/arab-ict-conference-7',
-    path: '/arab-ict-conference-7',
-    getParentRoute: () => ConferencesRoute,
+    id: '/conferences/arab-ict-conference-7',
+    path: '/conferences/arab-ict-conference-7',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const ConferencesEnergyManagementGulfForum26Route =
   ConferencesEnergyManagementGulfForum26RouteImport.update({
-    id: '/energy-management-gulf-forum-26',
-    path: '/energy-management-gulf-forum-26',
-    getParentRoute: () => ConferencesRoute,
+    id: '/conferences/energy-management-gulf-forum-26',
+    path: '/conferences/energy-management-gulf-forum-26',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const ConferencesMaintcon2024Route = ConferencesMaintcon2024RouteImport.update({
-  id: '/maintcon-2024',
-  path: '/maintcon-2024',
-  getParentRoute: () => ConferencesRoute,
+  id: '/conferences/maintcon-2024',
+  path: '/conferences/maintcon-2024',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ConferencesMiddleEastCorrosion18Route =
   ConferencesMiddleEastCorrosion18RouteImport.update({
-    id: '/middle-east-corrosion-18',
-    path: '/middle-east-corrosion-18',
-    getParentRoute: () => ConferencesRoute,
+    id: '/conferences/middle-east-corrosion-18',
+    path: '/conferences/middle-east-corrosion-18',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const EventsIndexRoute = EventsIndexRouteImport.update({
   id: '/events/',
@@ -93,33 +93,33 @@ const EventsIndexRoute = EventsIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsSlugRoute = EventsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => EventsRoute,
+  id: '/events/$slug',
+  path: '/events/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const EventsAnnualGeneralAssemblyRoute =
   EventsAnnualGeneralAssemblyRouteImport.update({
-    id: '/annual-general-assembly',
-    path: '/annual-general-assembly',
-    getParentRoute: () => EventsRoute,
+    id: '/events/annual-general-assembly',
+    path: '/events/annual-general-assembly',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const EventsAnnualRamadanGhabgaRoute =
   EventsAnnualRamadanGhabgaRouteImport.update({
-    id: '/annual-ramadan-ghabga',
-    path: '/annual-ramadan-ghabga',
-    getParentRoute: () => EventsRoute,
+    id: '/events/annual-ramadan-ghabga',
+    path: '/events/annual-ramadan-ghabga',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const EventsBahrainiEngineerDayRoute =
   EventsBahrainiEngineerDayRouteImport.update({
-    id: '/bahraini-engineer-day',
-    path: '/bahraini-engineer-day',
-    getParentRoute: () => EventsRoute,
+    id: '/events/bahraini-engineer-day',
+    path: '/events/bahraini-engineer-day',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const EventsVolunteersRecognitionRoute =
   EventsVolunteersRecognitionRouteImport.update({
-    id: '/volunteers-recognition',
-    path: '/volunteers-recognition',
-    getParentRoute: () => EventsRoute,
+    id: '/events/volunteers-recognition',
+    path: '/events/volunteers-recognition',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const ExhibitionsIndexRoute = ExhibitionsIndexRouteImport.update({
   id: '/exhibitions/',
@@ -268,6 +268,16 @@ export interface RootRouteChildren {
   SponsorsRoute: typeof SponsorsRoute
   TeamRoute: typeof TeamRoute
   VenueRentalRoute: typeof VenueRentalRoute
+  ConferencesSlugRoute: typeof ConferencesSlugRoute
+  ConferencesArabIctConference7Route: typeof ConferencesArabIctConference7Route
+  ConferencesEnergyManagementGulfForum26Route: typeof ConferencesEnergyManagementGulfForum26Route
+  ConferencesMaintcon2024Route: typeof ConferencesMaintcon2024Route
+  ConferencesMiddleEastCorrosion18Route: typeof ConferencesMiddleEastCorrosion18Route
+  EventsSlugRoute: typeof EventsSlugRoute
+  EventsAnnualGeneralAssemblyRoute: typeof EventsAnnualGeneralAssemblyRoute
+  EventsAnnualRamadanGhabgaRoute: typeof EventsAnnualRamadanGhabgaRoute
+  EventsBahrainiEngineerDayRoute: typeof EventsBahrainiEngineerDayRoute
+  EventsVolunteersRecognitionRoute: typeof EventsVolunteersRecognitionRoute
   ExhibitionsSlugRoute: typeof ExhibitionsSlugRoute
   ConferencesIndexRoute: typeof ConferencesIndexRoute
   EventsIndexRoute: typeof EventsIndexRoute
@@ -320,38 +330,38 @@ declare module '@tanstack/react-router' {
     }
     '/conferences/$slug': {
       id: '/conferences/$slug'
-      path: '/$slug'
+      path: '/conferences/$slug'
       fullPath: '/conferences/$slug'
       preLoaderRoute: typeof ConferencesSlugRouteImport
-      parentRoute: typeof ConferencesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/conferences/arab-ict-conference-7': {
       id: '/conferences/arab-ict-conference-7'
-      path: '/arab-ict-conference-7'
+      path: '/conferences/arab-ict-conference-7'
       fullPath: '/conferences/arab-ict-conference-7'
       preLoaderRoute: typeof ConferencesArabIctConference7RouteImport
-      parentRoute: typeof ConferencesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/conferences/energy-management-gulf-forum-26': {
       id: '/conferences/energy-management-gulf-forum-26'
-      path: '/energy-management-gulf-forum-26'
+      path: '/conferences/energy-management-gulf-forum-26'
       fullPath: '/conferences/energy-management-gulf-forum-26'
       preLoaderRoute: typeof ConferencesEnergyManagementGulfForum26RouteImport
-      parentRoute: typeof ConferencesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/conferences/maintcon-2024': {
       id: '/conferences/maintcon-2024'
-      path: '/maintcon-2024'
+      path: '/conferences/maintcon-2024'
       fullPath: '/conferences/maintcon-2024'
       preLoaderRoute: typeof ConferencesMaintcon2024RouteImport
-      parentRoute: typeof ConferencesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/conferences/middle-east-corrosion-18': {
       id: '/conferences/middle-east-corrosion-18'
-      path: '/middle-east-corrosion-18'
+      path: '/conferences/middle-east-corrosion-18'
       fullPath: '/conferences/middle-east-corrosion-18'
       preLoaderRoute: typeof ConferencesMiddleEastCorrosion18RouteImport
-      parentRoute: typeof ConferencesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/events/': {
       id: '/events/'
@@ -362,38 +372,38 @@ declare module '@tanstack/react-router' {
     }
     '/events/$slug': {
       id: '/events/$slug'
-      path: '/$slug'
+      path: '/events/$slug'
       fullPath: '/events/$slug'
       preLoaderRoute: typeof EventsSlugRouteImport
-      parentRoute: typeof EventsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/events/annual-general-assembly': {
       id: '/events/annual-general-assembly'
-      path: '/annual-general-assembly'
+      path: '/events/annual-general-assembly'
       fullPath: '/events/annual-general-assembly'
       preLoaderRoute: typeof EventsAnnualGeneralAssemblyRouteImport
-      parentRoute: typeof EventsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/events/annual-ramadan-ghabga': {
       id: '/events/annual-ramadan-ghabga'
-      path: '/annual-ramadan-ghabga'
+      path: '/events/annual-ramadan-ghabga'
       fullPath: '/events/annual-ramadan-ghabga'
       preLoaderRoute: typeof EventsAnnualRamadanGhabgaRouteImport
-      parentRoute: typeof EventsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/events/bahraini-engineer-day': {
       id: '/events/bahraini-engineer-day'
-      path: '/bahraini-engineer-day'
+      path: '/events/bahraini-engineer-day'
       fullPath: '/events/bahraini-engineer-day'
       preLoaderRoute: typeof EventsBahrainiEngineerDayRouteImport
-      parentRoute: typeof EventsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/events/volunteers-recognition': {
       id: '/events/volunteers-recognition'
-      path: '/volunteers-recognition'
+      path: '/events/volunteers-recognition'
       fullPath: '/events/volunteers-recognition'
       preLoaderRoute: typeof EventsVolunteersRecognitionRouteImport
-      parentRoute: typeof EventsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/exhibitions/': {
       id: '/exhibitions/'
@@ -418,6 +428,17 @@ const rootRouteChildren: RootRouteChildren = {
   SponsorsRoute: SponsorsRoute,
   TeamRoute: TeamRoute,
   VenueRentalRoute: VenueRentalRoute,
+  ConferencesSlugRoute: ConferencesSlugRoute,
+  ConferencesArabIctConference7Route: ConferencesArabIctConference7Route,
+  ConferencesEnergyManagementGulfForum26Route:
+    ConferencesEnergyManagementGulfForum26Route,
+  ConferencesMaintcon2024Route: ConferencesMaintcon2024Route,
+  ConferencesMiddleEastCorrosion18Route: ConferencesMiddleEastCorrosion18Route,
+  EventsSlugRoute: EventsSlugRoute,
+  EventsAnnualGeneralAssemblyRoute: EventsAnnualGeneralAssemblyRoute,
+  EventsAnnualRamadanGhabgaRoute: EventsAnnualRamadanGhabgaRoute,
+  EventsBahrainiEngineerDayRoute: EventsBahrainiEngineerDayRoute,
+  EventsVolunteersRecognitionRoute: EventsVolunteersRecognitionRoute,
   ExhibitionsSlugRoute: ExhibitionsSlugRoute,
   ConferencesIndexRoute: ConferencesIndexRoute,
   EventsIndexRoute: EventsIndexRoute,
