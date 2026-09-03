@@ -47,6 +47,33 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-sans: var(--font-body);
   --font-display: var(--font-heading);
+
+  /* BSE / Superhuman-inspired aliases used by the refreshed surfaces. */
+  --color-bse-indigo: var(--bse-indigo);
+  --color-bse-indigo-deep: var(--bse-indigo-deep);
+  --color-bse-blue: var(--bse-blue);
+  --color-bse-teal: var(--bse-teal);
+  --color-bse-teal-mid: var(--bse-teal-mid);
+  --color-bse-violet: var(--bse-violet);
+  --color-bse-gold: var(--bse-gold);
+  --color-bse-gold-soft: var(--bse-gold-soft);
+  --color-bse-canvas: var(--bse-canvas);
+  --color-bse-canvas-soft: var(--bse-canvas-soft);
+  --color-bse-ink: var(--bse-ink);
+  --color-bse-ink-muted: var(--bse-ink-muted);
+  --color-bse-ink-faint: var(--bse-ink-faint);
+  --color-bse-hairline: var(--bse-hairline);
+  --color-bse-hairline-dark: var(--bse-hairline-dark);
+  --color-bse-cta: var(--bse-cta);
+  --color-bse-cta-deep: var(--bse-cta-deep);
+  --color-bse-cta-foreground: var(--bse-cta-foreground);
+  --color-bse-orbit-line: var(--bse-orbit-line);
+  --color-bse-orbit-gold-line: var(--bse-orbit-gold-line);
+  --radius-bse-md: 8px;
+  --radius-bse-lg: 12px;
+  --radius-bse-xl: 16px;
+  --container-bse-content: 1200px;
+  --container-bse-reading: 72ch;
 }
 
 :root {
@@ -100,6 +127,28 @@
   --gradient-brand: linear-gradient(120deg, var(--primary-deep), var(--primary));
   --shadow-card: 0 1px 2px oklch(0.24 0.098 265 / 0.06), 0 18px 40px -24px oklch(0.24 0.098 265 / 0.28);
   --shadow-lift: 0 2px 4px oklch(0.24 0.098 265 / 0.08), 0 30px 60px -28px oklch(0.24 0.098 265 / 0.4);
+
+  /* New HEX tokens mirror the approved canvas language without replacing the legacy theme. */
+  --bse-indigo: #1b1938;
+  --bse-indigo-deep: #0e0c1f;
+  --bse-blue: #123c8b;
+  --bse-teal: #0e3030;
+  --bse-teal-mid: #155555;
+  --bse-violet: #c9b4fa;
+  --bse-gold: #d5a84b;
+  --bse-gold-soft: #f2d084;
+  --bse-canvas: #ffffff;
+  --bse-canvas-soft: #fafaf8;
+  --bse-ink: #292827;
+  --bse-ink-muted: #73706d;
+  --bse-ink-faint: #9a9794;
+  --bse-hairline: #e8e4dd;
+  --bse-hairline-dark: #3f3a52;
+  --bse-cta: #1b1938;
+  --bse-cta-deep: #0e0c1f;
+  --bse-cta-foreground: #ffffff;
+  --bse-orbit-line: #dbe5f7;
+  --bse-orbit-gold-line: #f0e6cc;
 }
 
 @layer base {
@@ -353,4 +402,116 @@
 @utility band-edge {
   background-image: var(--gradient-gold);
   height: 2px;
+}
+
+/* ===== Approved institutional page language ===== */
+@utility bse-display {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+@utility bse-body {
+  font-family: var(--font-body);
+}
+
+@utility bse-indigo-band {
+  background-color: var(--bse-indigo);
+  color: var(--bse-canvas);
+}
+
+@utility bse-teal-band {
+  background-color: var(--bse-teal);
+  color: var(--bse-canvas);
+}
+
+@utility bse-soft-canvas {
+  background-color: var(--bse-canvas-soft);
+}
+
+@utility bse-stat-strip {
+  background-color: var(--bse-indigo-deep);
+  color: var(--bse-canvas);
+}
+
+@utility bse-hairline {
+  border-color: var(--bse-hairline);
+}
+
+@utility bse-hero-wash {
+  background: linear-gradient(90deg, rgba(14, 12, 31, 0.97) 0%, rgba(27, 25, 56, 0.88) 48%, rgba(18, 60, 139, 0.35) 100%);
+}
+
+@utility bse-photo-wash {
+  background: linear-gradient(180deg, rgba(14, 12, 31, 0.08), rgba(14, 12, 31, 0.82));
+}
+
+@utility bse-blueprint {
+  background-image:
+    linear-gradient(rgba(242, 208, 132, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 208, 132, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+@utility bse-blueprint-light {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@utility bse-map-grid {
+  background-color: #eef1f5;
+  background-image:
+    linear-gradient(28deg, transparent 47%, rgba(18, 60, 139, 0.14) 48%, rgba(18, 60, 139, 0.14) 50%, transparent 51%),
+    linear-gradient(118deg, transparent 48%, rgba(213, 168, 75, 0.55) 49%, rgba(213, 168, 75, 0.55) 51%, transparent 52%),
+    linear-gradient(rgba(18, 60, 139, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 60, 139, 0.08) 1px, transparent 1px);
+  background-size: 130px 92px, 170px 110px, 22px 22px, 22px 22px;
+}
+
+/** Quiet orbital circles used on white institutional sections. */
+@utility bse-orbital-light {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    border: 1px solid var(--bse-orbit-line);
+    border-radius: 9999px;
+    opacity: 0.58;
+  }
+  &::before {
+    width: 34rem;
+    height: 34rem;
+    inset-inline-start: -12rem;
+    top: -16rem;
+  }
+  &::after {
+    width: 24rem;
+    height: 24rem;
+    inset-inline-end: -7rem;
+    bottom: -12rem;
+    border-color: var(--bse-orbit-gold-line);
+    opacity: 0.72;
+  }
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

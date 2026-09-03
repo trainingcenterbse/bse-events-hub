@@ -1,15 +1,16 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, LayoutGrid, Star } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { ArrowUpLeft, CalendarDays, Handshake, LayoutGrid } from "lucide-react";
 
-import heroConference from "@/assets/hero-conference.jpg";
 import heroExhibition from "@/assets/hero-exhibition.jpg";
-import seminar from "@/assets/seminar.jpg";
-import teamWork from "@/assets/team-work.jpg";
-import { CountUp, Reveal } from "@/components/Reveal";
-import { PageHero, SectionHeading } from "@/components/Sections";
-import { Badge } from "@/components/ui/badge";
+import { ClosingCta } from "@/components/bse/ClosingCta";
+import { EditorialSectionHeading } from "@/components/bse/EditorialSectionHeading";
+import { ExhibitionListItem } from "@/components/bse/ExhibitionListItem";
+import { SharedSplitHero } from "@/components/bse/SharedSplitHero";
+import { StatStrip } from "@/components/bse/StatStrip";
+import { TypographyH2, TypographyP } from "@/components/bse/Typography";
 import { Button } from "@/components/ui/button";
 import { exhibitions } from "@/data/content";
+import { exhibitionCovers } from "@/lib/presentation";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/exhibitions/")({
@@ -18,198 +19,142 @@ export const Route = createFileRoute("/exhibitions/")({
       { title: "المعارض الحالية والسابقة | BSE Event" },
       {
         name: "description",
-        content:
-          "معارض جمعية المهندسين البحرينية: المعرض الدولي للدراسات الأكاديمية والهندسية ومعرض كروجن، إضافة إلى المعارض الحالية والسابقة والخط الزمني لكل نسخة.",
-      },
-      { property: "og:title", content: "المعارض الحالية والسابقة | BSE Event" },
-      {
-        property: "og:description",
-        content: "معارض الجمعية الخاصة ونسخها السنوية، والمعارض الحالية والسابقة المصاحبة للمؤتمرات.",
+        content: "معارض جمعية المهندسين البحرينية: منصات مملوكة، ومعارض شريكة، ونسخ موثقة لكل دورة.",
       },
     ],
   }),
   component: Exhibitions,
 });
 
-const covers = [heroExhibition, seminar, heroConference, teamWork];
-
-function ExhibitionCard({ slug, index }: { slug: string; index: number }) {
-  const { p, t } = useI18n();
-  const e = exhibitions.find((x) => x.slug === slug)!;
-
+function ExhibitionCover({ className = "" }: { className?: string }) {
   return (
-    <Link
-      to="/exhibitions/$slug"
-      params={{ slug: e.slug }}
-      className="showcase-card group flex h-full flex-col bg-card"
-    >
-      <div className="relative h-44 overflow-hidden">
-        <img
-          src={covers[index % covers.length]!}
-          alt={p(e.name)}
-          width={1600}
-          height={1000}
-          loading="lazy"
-          className="absolute inset-0 size-full object-cover"
-        />
-        <div className="veil absolute inset-0" />
-        <div className="absolute bottom-4 start-5 flex flex-wrap items-center gap-2">
-          {e.owned && (
-            <Badge className="gap-1">
-              <Star className="size-3" />
-              {t("ourExhibitions")}
-            </Badge>
-          )}
-          <span className="rounded-full bg-background/15 px-2.5 py-1 text-[11px] font-medium text-primary-foreground backdrop-blur-sm">
-            {p(e.sector)}
-          </span>
-        </div>
+    <div className={`relative overflow-hidden rounded-bse-xl bg-bse-indigo ${className}`}>
+      <img
+        src={heroExhibition}
+        alt="قاعة معرض هندسي في البحرين"
+        width={1600}
+        height={1000}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 size-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-bse-indigo-deep/90 via-bse-indigo/35 to-transparent" />
+      <div className="absolute inset-x-6 bottom-6 text-white">
+        <p className="text-xs font-bold tracking-[0.16em] text-bse-gold-soft">BSE EXHIBITION PLATFORM</p>
+        <p className="bse-display mt-2 text-xl">معرفة · لقاء · فرصة</p>
       </div>
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="font-display text-lg font-bold text-primary">{p(e.name)}</h3>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p(e.short)}</p>
-        <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
-          <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <LayoutGrid className="size-3.5 text-accent" />
-            {e.editions.length} {t("editions")}
-          </span>
-          <Button asChild variant="outline" size="sm" className="gap-1.5">
-            <span>
-              {t("timeline")}
-              <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5" />
-            </span>
-          </Button>
-        </div>
-      </div>
-    </Link>
+    </div>
   );
 }
 
 function Exhibitions() {
-  const { p, t } = useI18n();
-  const owned = exhibitions.filter((e) => e.owned);
-  const current = exhibitions.filter((e) => !e.owned && e.status === "current");
-  const past = exhibitions.filter((e) => !e.owned && e.status === "past");
+  const { p } = useI18n();
+  const owned = exhibitions.filter((exhibition) => exhibition.owned);
+  const current = exhibitions.filter((exhibition) => !exhibition.owned && exhibition.status === "current");
+  const past = exhibitions.filter((exhibition) => !exhibition.owned && exhibition.status === "past");
+  const metrics = [
+    { value: "02", label: { ar: "منصات مملوكة للجمعية", en: "BSE-owned platforms" } },
+    { value: "09+", label: { ar: "نسخة موثقة عبر منصاتنا", en: "Documented editions" } },
+    { value: "60+", label: { ar: "جامعة وجهة عارضة", en: "Universities & exhibitors" } },
+    { value: "12K+", label: { ar: "زائر في كل نسخة", en: "Visitors per edition" } },
+  ];
 
   return (
     <>
-      <PageHero
-        eyebrow={t("navExhibitions")}
-        title={p({ ar: "المعارض", en: "Exhibitions" })}
-        description={p({
-          ar: "معارض تملكها الجمعية بنسخ سنوية موثقة، ومعارض حالية وسابقة مصاحبة للمؤتمرات المتخصصة. اضغط على أي معرض لعرض الخط الزمني لنسخه وروابط كل نسخة.",
-          en: "BSE-owned exhibitions with documented annual editions, plus current and past exhibitions accompanying specialised conferences. Open any exhibition to view its editions timeline and links.",
-        })}
+      <SharedSplitHero
+        variant="home"
+        eyebrow="EXHIBITIONS / 02"
+        title="المعارض التي تجعل التخصص قريبًا"
+        description="منصات تعليمية وتقنية تجمع الجامعات والشركات والمهندسين حول حلول واضحة، وتجعل كل نسخة قابلة للرجوع والقياس."
         image={heroExhibition}
+        imageAlt="زوار وشركات في معرض هندسي"
+        primaryAction={
+          <Button asChild size="lg" className="gap-2 rounded-bse-md bg-bse-gold text-bse-indigo-deep hover:bg-bse-gold-soft">
+            <a href="#owned-exhibitions">استكشف المعارض<ArrowUpLeft className="size-4" aria-hidden="true" /></a>
+          </Button>
+        }
+        secondaryAction={
+          <Button asChild size="lg" variant="outline" className="gap-2 rounded-bse-md border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white">
+            <a href="mailto:events@bse.bh">اطلب ملف العارض<ArrowUpLeft className="size-4" aria-hidden="true" /></a>
+          </Button>
+        }
+        facts={<div className="mt-12 border-t border-white/15 pt-5 text-xs text-white/65">منصات الجمعية · معارض شريكة · نسخ موثقة</div>}
       />
 
-      {/* Owned exhibitions — flagship treatment */}
-      <section className="relative overflow-hidden py-24">
-        <div className="kufic-grid absolute inset-0" aria-hidden />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-          <SectionHeading
-            eyebrow={p({ ar: "خاص بالجمعية", en: "BSE owned" })}
-            title={t("ourExhibitions")}
-            description={p({
-              ar: "منصتان تملكهما وتنظمهما جمعية المهندسين البحرينية بشكل كامل، ولكل منهما نسخ سنوية وصفحة خاصة بكل نسخة.",
-              en: "Two platforms fully owned and organised by BSE, each with annual editions and a page per edition.",
-            })}
+      <StatStrip items={metrics} />
+
+      <section id="owned-exhibitions" className="bse-orbital-light bg-bse-canvas-soft px-6 py-20 sm:py-24">
+        <div className="relative z-10 mx-auto max-w-bse-content">
+          <EditorialSectionHeading
+            eyebrow="EXHIBITION REGISTER"
+            title="منصات تملكها الجمعية"
+            description="معارض مملوكة ومدارة بالكامل من جمعية المهندسين البحرينية، لكل منها هوية واضحة ونسخ موثقة ومسار مشاركة قابل للقياس."
+            action={<span className="text-sm text-bse-ink-muted"><strong className="text-bse-indigo">{owned.length}</strong> منصات رئيسية</span>}
           />
-          <div className="mt-14 space-y-10">
-            {owned.map((e, i) => (
-              <Reveal key={e.slug} delay={i * 0.08}>
-                <article className="showcase-card grid bg-card lg:grid-cols-5">
-                  <div className="relative min-h-[280px] overflow-hidden lg:col-span-2">
-                    <img
-                      src={i === 0 ? seminar : heroExhibition}
-                      alt={p(e.name)}
-                      width={1600}
-                      height={1000}
-                      loading="lazy"
-                      className="absolute inset-0 size-full object-cover"
-                    />
-                    <div className="veil absolute inset-0" />
-                    <div className="absolute inset-x-6 bottom-6">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3 py-1 text-[11px] font-bold text-accent-foreground">
-                        <Star className="size-3" />
-                        {t("ourExhibitions")}
-                      </span>
-                      <p className="numeral mt-3 text-6xl font-bold text-primary-foreground/85" dir="ltr">
-                        {e.started}
-                      </p>
-                      <p className="text-xs uppercase tracking-widest text-primary-foreground/60">
-                        {p({ ar: "سنة الانطلاق", en: "Launched" })}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="p-8 sm:p-10 lg:col-span-3">
-                    <p className="eyebrow">{p(e.sector)}</p>
-                    <h3 className="mt-3 font-display text-2xl font-bold text-primary sm:text-3xl">
-                      {p(e.name)}
-                    </h3>
-                    <p className="mt-4 leading-relaxed text-muted-foreground">{p(e.short)}</p>
-                    <div className="mt-8 grid grid-cols-3 gap-4 rounded-xl bg-secondary/60 p-5">
-                      {e.stats.map((s) => (
-                        <div key={s.value}>
-                          <CountUp value={s.value} className="numeral block text-3xl font-bold text-primary" />
-                          <p className="mt-2 text-xs text-muted-foreground">{p(s.label)}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-7 flex flex-wrap items-center gap-2">
-                      <span className="text-xs font-semibold text-muted-foreground">{t("editions")}:</span>
-                      {e.editions.map((ed) => (
-                        <Badge key={ed.year} variant="secondary" dir="ltr">
-                          {ed.year}
-                        </Badge>
-                      ))}
-                    </div>
-                    <Link
-                      to="/exhibitions/$slug"
-                      params={{ slug: e.slug }}
-                      className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-deep"
-                    >
-                      {t("timeline")}
-                      <ArrowUpRight className="size-4" />
-                    </Link>
-                  </div>
-                </article>
-              </Reveal>
+          <div className="mt-10 space-y-6">
+            {owned.map((exhibition, index) => (
+              <ExhibitionListItem
+                key={exhibition.slug}
+                exhibition={exhibition}
+                cover={exhibitionCovers[exhibition.slug] ?? heroExhibition}
+                featured={index === 0}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-secondary/50 py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <SectionHeading
-            eyebrow={t("otherExhibitions")}
-            title={t("currentExhibitions")}
-            description={p({
-              ar: "معارض قائمة حالياً أو مقبلة، تُنظَّم بالشراكة مع الاتحادات والجمعيات المتخصصة.",
-              en: "Currently running or upcoming exhibitions organised in partnership with specialised federations and societies.",
-            })}
-          />
-          <div className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-            {current.map((e, i) => (
-              <Reveal key={e.slug} delay={i * 0.08} className="h-full">
-                <ExhibitionCard slug={e.slug} index={i} />
-              </Reveal>
-            ))}
+      <section className="bse-orbital-light bg-white px-6 py-20 sm:py-24">
+        <div className="relative z-10 mx-auto max-w-bse-content">
+          <div className="grid items-center gap-10 border-b border-bse-hairline pb-14 lg:grid-cols-[minmax(0,1fr)_minmax(280px,.7fr)]">
+            <div>
+              <p className="text-xs font-bold tracking-[0.16em] text-bse-gold">EXHIBITIONS / PARTNERS</p>
+              <TypographyH2 className="mt-3">كل نسخة تفتح بابًا جديدًا للقاء</TypographyH2>
+              <TypographyP className="mt-5 max-w-2xl">ننسّق مع الاتحادات والجامعات والجهات الصناعية لتقديم معارض مصاحبة للمؤتمرات، وبرامج عرض تمنح الزائر صورة عملية عن القطاع.</TypographyP>
+            </div>
+            <ExhibitionCover className="min-h-[230px]" />
           </div>
 
-          <div className="mt-24">
-            <SectionHeading eyebrow={t("past")} title={t("pastExhibitions")} />
-            <div className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-              {past.map((e, i) => (
-                <Reveal key={e.slug} delay={i * 0.08} className="h-full">
-                  <ExhibitionCard slug={e.slug} index={i + 2} />
-                </Reveal>
+          <div id="current-exhibitions" className="scroll-mt-28 pt-14">
+            <EditorialSectionHeading
+              eyebrow="CURRENT PROGRAMME"
+              title="المعارض الحالية"
+              description="معارض قائمة أو مقبلة تُنظّم بالشراكة مع الجهات المتخصصة، مع معلومات النسخ والمشاركة في صفحة كل معرض."
+              action={<span className="inline-flex items-center gap-2 text-sm text-bse-ink-muted"><CalendarDays className="size-4 text-bse-gold" aria-hidden="true" /><strong className="text-bse-indigo">{current.length}</strong> معارض حالية</span>}
+            />
+            <div className="mt-10 space-y-6">
+              {current.map((exhibition) => (
+                <ExhibitionListItem key={exhibition.slug} exhibition={exhibition} cover={exhibitionCovers[exhibition.slug] ?? heroExhibition} />
+              ))}
+            </div>
+          </div>
+
+          <div id="past-exhibitions" className="scroll-mt-28 pt-16">
+            <EditorialSectionHeading
+              eyebrow="ARCHIVE"
+              title="المعارض السابقة"
+              description="أرشيف مختصر للمنصات التي شاركت الجمعية في تنظيمها، مع إبقاء السنة والقطاع والنسخ في الواجهة."
+              action={<span className="inline-flex items-center gap-2 text-sm text-bse-ink-muted"><LayoutGrid className="size-4 text-bse-gold" aria-hidden="true" /><strong className="text-bse-indigo">{past.length}</strong> معارض مؤرشفة</span>}
+            />
+            <div className="mt-10 space-y-6">
+              {past.map((exhibition) => (
+                <ExhibitionListItem key={exhibition.slug} exhibition={exhibition} cover={exhibitionCovers[exhibition.slug] ?? heroExhibition} />
               ))}
             </div>
           </div>
         </div>
       </section>
+
+      <ClosingCta
+        eyebrow="EXHIBITION PARTNERSHIPS"
+        title="هل لديك منتج يستحق أن يُرى؟"
+        description="شاركنا مجال شركتك وهدف حضورك، وسنقترح لك المسار الأنسب للعرض أو الرعاية أو الشراكة التقنية."
+        action={
+          <Button asChild size="lg" className="gap-2 rounded-bse-md bg-white text-bse-indigo hover:bg-bse-gold-soft">
+            <a href="mailto:events@bse.bh">تواصل مع فريق المعارض<Handshake className="size-4" aria-hidden="true" /></a>
+          </Button>
+        }
+      />
     </>
   );
 }
