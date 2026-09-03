@@ -52,9 +52,9 @@ const ConferencesIndexRoute = ConferencesIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConferencesSlugRoute = ConferencesSlugRouteImport.update({
-  id: '/conferences/$slug',
-  path: '/conferences/$slug',
-  getParentRoute: () => rootRouteImport,
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ConferencesRoute,
 } as any)
 const EventsIndexRoute = EventsIndexRouteImport.update({
   id: '/events/',
@@ -62,9 +62,9 @@ const EventsIndexRoute = EventsIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsSlugRoute = EventsSlugRouteImport.update({
-  id: '/events/$slug',
-  path: '/events/$slug',
-  getParentRoute: () => rootRouteImport,
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => EventsRoute,
 } as any)
 const ExhibitionsIndexRoute = ExhibitionsIndexRouteImport.update({
   id: '/exhibitions/',
@@ -165,8 +165,6 @@ export interface RootRouteChildren {
   SponsorsRoute: typeof SponsorsRoute
   TeamRoute: typeof TeamRoute
   VenueRentalRoute: typeof VenueRentalRoute
-  ConferencesSlugRoute: typeof ConferencesSlugRoute
-  EventsSlugRoute: typeof EventsSlugRoute
   ExhibitionsSlugRoute: typeof ExhibitionsSlugRoute
   ConferencesIndexRoute: typeof ConferencesIndexRoute
   EventsIndexRoute: typeof EventsIndexRoute
@@ -219,10 +217,10 @@ declare module '@tanstack/react-router' {
     }
     '/conferences/$slug': {
       id: '/conferences/$slug'
-      path: '/conferences/$slug'
+      path: '/$slug'
       fullPath: '/conferences/$slug'
       preLoaderRoute: typeof ConferencesSlugRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ConferencesRoute
     }
     '/events/': {
       id: '/events/'
@@ -233,10 +231,10 @@ declare module '@tanstack/react-router' {
     }
     '/events/$slug': {
       id: '/events/$slug'
-      path: '/events/$slug'
+      path: '/$slug'
       fullPath: '/events/$slug'
       preLoaderRoute: typeof EventsSlugRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof EventsRoute
     }
     '/exhibitions/': {
       id: '/exhibitions/'
@@ -261,8 +259,6 @@ const rootRouteChildren: RootRouteChildren = {
   SponsorsRoute: SponsorsRoute,
   TeamRoute: TeamRoute,
   VenueRentalRoute: VenueRentalRoute,
-  ConferencesSlugRoute: ConferencesSlugRoute,
-  EventsSlugRoute: EventsSlugRoute,
   ExhibitionsSlugRoute: ExhibitionsSlugRoute,
   ConferencesIndexRoute: ConferencesIndexRoute,
   EventsIndexRoute: EventsIndexRoute,
