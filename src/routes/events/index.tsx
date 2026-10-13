@@ -26,7 +26,7 @@ export const Route = createFileRoute("/events/")({
 });
 
 function Events() {
-  const { p } = useI18n();
+  const { p, t, lang } = useI18n();
   const [filter, setFilter] = useState<EventFilter>("all");
   const [category, setCategory] = useState("all");
   const [search, setSearch] = useState("");
@@ -48,37 +48,37 @@ function Events() {
     <>
       <SharedSplitHero
         variant="home"
-        eyebrow="الفعاليات والأنشطة والندوات"
-        title="فعاليات تصنع حضورًا للمهندس"
-        description="برنامج سنوي من الفعاليات الوطنية والاجتماعية والندوات الفنية والزيارات الميدانية، يربط أعضاء الجمعية بالمهنة وسوق العمل وصنّاع القرار."
+        eyebrow={t("eventsEyebrow")}
+        title={t("eventsPageTitle")}
+        description={t("eventsPageDesc")}
         image={heroEvents}
-        imageAlt="حفل هندسي وتكريم مهندسين"
-        primaryAction={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-bse-gold text-bse-indigo-deep hover:bg-bse-gold-soft"><a href="#programme">اكتشف البرنامج<span aria-hidden="true">←</span></a></Button>}
-        secondaryAction={<Button asChild size="lg" variant="outline" className="gap-2 rounded-bse-md border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"><a href="#contact">اقترح فعالية<span aria-hidden="true">↗</span></a></Button>}
-        facts={<div className="mt-12 border-t border-white/15 pt-5 text-xs text-white/65">BSE Event Programme / 2026 · 120+ فعالية سنويًا</div>}
+        imageAlt={lang === "ar" ? "حفل هندسي وتكريم مهندسين" : "Engineering ceremony honoring engineers"}
+        primaryAction={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-bse-gold text-bse-indigo-deep hover:bg-bse-gold-soft"><a href="#programme">{t("discoverProgram")}<span aria-hidden="true">←</span></a></Button>}
+        secondaryAction={<Button asChild size="lg" variant="outline" className="gap-2 rounded-bse-md border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"><a href="#contact">{t("suggestEvent")}<span aria-hidden="true">↗</span></a></Button>}
+        facts={<div className="mt-12 border-t border-white/15 pt-5 text-xs text-white/65">{t("eventsFacts")}</div>}
       />
       <StatStrip items={scale} />
 
       <section className="bse-orbital-light bg-white px-6 py-16 sm:py-20">
         <div className="relative z-10 mx-auto max-w-bse-content">
-          <EditorialSectionHeading eyebrow="فعاليات رئيسية" title="ثلاث محطات تجمع المجتمع الهندسي" description="صفحات خاصة لكل فعالية رئيسية، بمعلومات واضحة عن البرنامج والمكان والجمهور وفرص المشاركة والرعاية." />
+          <EditorialSectionHeading eyebrow={t("flagshipEvents")} title={t("threeMilestones")} description={t("flagshipEventsDesc")} />
           <EventHighlights items={featured.map((event) => ({ event, cover: eventCovers[event.cover] }))} />
         </div>
       </section>
 
       <section id="programme" className="bse-orbital-light bg-bse-canvas-soft px-6 py-16 sm:py-20">
         <div className="relative z-10 mx-auto max-w-bse-content">
-          <EditorialSectionHeading eyebrow="البرنامج السنوي" title="الفعاليات والأنشطة" description="ابحث في كامل البرنامج، ثم افتح صفحة الفعالية لمعرفة الجدول والموقع والجمهور المستهدف." action={<span className="text-sm text-bse-ink-muted"><strong className="text-bse-indigo">{filtered.length}</strong> نتائج</span>} />
+          <EditorialSectionHeading eyebrow={t("annualProgramme")} title={t("eventsAndActivities")} description={t("eventsAndActivitiesDesc")} action={<span className="text-sm text-bse-ink-muted"><strong className="text-bse-indigo">{filtered.length}</strong> {t("results")}</span>} />
           <div className="mt-8"><EventFilterBar filter={filter} onFilterChange={setFilter} category={category} categories={categories} onCategoryChange={setCategory} search={search} onSearchChange={setSearch} /></div>
           <div className="relative mt-8 overflow-hidden rounded-bse-xl border-t-2 border-bse-gold bg-white">
             <div className="pointer-events-none absolute bottom-5 end-[142px] top-5 hidden w-0.5 bg-gradient-to-b from-bse-gold-soft via-bse-gold to-bse-gold-soft lg:block" />
             {filtered.map((event) => <EventTimelineRow key={event.slug} event={event} />)}
           </div>
-          {filtered.length === 0 && <div className="mt-8 rounded-bse-xl border border-dashed border-bse-gold bg-white p-10 text-center"><TypographyH2 className="text-2xl">لا توجد نتائج مطابقة</TypographyH2><p className="mt-3 text-sm text-bse-ink-muted">جرّب كلمة بحث مختلفة أو أعد ضبط الفلاتر.</p><Button type="button" className="mt-5 rounded-bse-md" onClick={() => { setFilter("all"); setCategory("all"); setSearch(""); }}>مسح الفلاتر</Button></div>}
+          {filtered.length === 0 && <div className="mt-8 rounded-bse-xl border border-dashed border-bse-gold bg-white p-10 text-center"><TypographyH2 className="text-2xl">{t("noResultsFound")}</TypographyH2><p className="mt-3 text-sm text-bse-ink-muted">{t("tryDifferentSearchEvent")}</p><Button type="button" className="mt-5 rounded-bse-md" onClick={() => { setFilter("all"); setCategory("all"); setSearch(""); }}>{t("clearFiltersAction")}</Button></div>}
         </div>
       </section>
 
-      <ClosingCta eyebrow="شراكة تبدأ بفكرة" title="هل لديك فكرة نشاط أو ندوة؟" description="نستقبل مقترحات الأعضاء واللجان الفنية والشركات لتنظيم فعاليات تصنع أثرًا واضحًا للمجتمع الهندسي." action={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-white text-bse-indigo hover:bg-bse-gold-soft"><a href="mailto:events@bse.bh">اقترح فعالية<span aria-hidden="true">←</span></a></Button>} />
+      <ClosingCta eyebrow={t("eventsClosingEyebrow")} title={t("eventsClosingTitle")} description={t("eventsClosingDesc")} action={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-white text-bse-indigo hover:bg-bse-gold-soft"><a href="mailto:events@bse.bh">{t("suggestEventAction")}<span aria-hidden="true">←</span></a></Button>} />
     </>
   );
 }

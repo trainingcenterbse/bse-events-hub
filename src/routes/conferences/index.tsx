@@ -25,7 +25,7 @@ export const Route = createFileRoute("/conferences/")({
 });
 
 function Conferences() {
-  const { p } = useI18n();
+  const { p, t, lang } = useI18n();
   const [filter, setFilter] = useState<ConferenceFilter>("all");
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<ConferenceSort>("default");
@@ -46,24 +46,24 @@ function Conferences() {
     <>
       <SharedSplitHero
         variant="home"
-        eyebrow="CONFERENCES / 01"
-        title="المؤتمرات الهندسية"
-        description="منصات علمية تجمع الخبراء وصنّاع القرار والقطاع الهندسي حول موضوعات الطاقة والصيانة والتقنية والتآكل."
+        eyebrow={t("conferencesEyebrow")}
+        title={t("conferencesPageTitle")}
+        description={t("conferencesPageDesc")}
         image={heroConference}
-        imageAlt="قاعة مؤتمر هندسي في البحرين"
-        primaryAction={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-bse-gold text-bse-indigo-deep hover:bg-bse-gold-soft"><a href="#conference-list">تصفح المؤتمرات<span aria-hidden="true">↙</span></a></Button>}
-        secondaryAction={<Button asChild size="lg" variant="outline" className="gap-2 rounded-bse-md border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"><a href="#contact">فرص الشراكة<span aria-hidden="true">↗</span></a></Button>}
-        facts={<div className="mt-12 border-t border-white/15 pt-5 text-xs text-white/65">أجندة 2025 · برامج علمية ومعارض مصاحبة</div>}
+        imageAlt={lang === "ar" ? "قاعة مؤتمر هندسي في البحرين" : "Engineering conference hall in Bahrain"}
+        primaryAction={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-bse-gold text-bse-indigo-deep hover:bg-bse-gold-soft"><a href="#conference-list">{t("browseConferences")}<span aria-hidden="true">↙</span></a></Button>}
+        secondaryAction={<Button asChild size="lg" variant="outline" className="gap-2 rounded-bse-md border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"><a href="#contact">{t("partnershipOpportunities")}<span aria-hidden="true">↗</span></a></Button>}
+        facts={<div className="mt-12 border-t border-white/15 pt-5 text-xs text-white/65">{t("conferenceAgenda")}</div>}
       />
       <StatStrip items={impact} />
 
       <section id="conference-list" className="bse-orbital-light bg-bse-canvas-soft px-6 py-20 sm:py-24">
         <div className="relative z-10 mx-auto max-w-bse-content">
           <EditorialSectionHeading
-            eyebrow="THE CONFERENCE REGISTER"
-            title="مؤتمراتنا"
-            description="تعرّف على المؤتمرات التي تستضيفها الجمعية أو تنظمها بالشراكة مع الاتحادات المهنية."
-            action={<span className="text-sm text-bse-ink-muted"><strong className="text-bse-indigo">{filtered.length}</strong> مؤتمرات معروضة</span>}
+            eyebrow={t("conferenceRegister")}
+            title={t("ourConferences")}
+            description={t("conferencesPageSectionDesc")}
+            action={<span className="text-sm text-bse-ink-muted"><strong className="text-bse-indigo">{filtered.length}</strong> {t("conferencesDisplayed")}</span>}
           />
           <div className="mt-8"><ConferenceFilterBar filter={filter} onFilterChange={setFilter} search={search} onSearchChange={setSearch} sort={sort} onSortChange={setSort} /></div>
           <div className="mt-8 space-y-6">
@@ -71,16 +71,16 @@ function Conferences() {
           </div>
           {filtered.length === 0 && (
             <div className="mt-8 rounded-bse-xl border border-dashed border-bse-gold bg-white p-10 text-center">
-              <TypographyH2 className="text-2xl">لم نعثر على مؤتمر مطابق</TypographyH2>
-              <p className="mt-3 text-sm text-bse-ink-muted">جرّب كلمة بحث مختلفة أو أعد عرض جميع المؤتمرات.</p>
-              <Button type="button" className="mt-5 rounded-bse-md" onClick={() => { setFilter("all"); setSearch(""); setSort("default"); }}>عرض جميع المؤتمرات</Button>
+              <TypographyH2 className="text-2xl">{t("noConferenceFound")}</TypographyH2>
+              <p className="mt-3 text-sm text-bse-ink-muted">{t("tryDifferentSearch")}</p>
+              <Button type="button" className="mt-5 rounded-bse-md" onClick={() => { setFilter("all"); setSearch(""); setSort("default"); }}>{t("showAllConferences")}</Button>
             </div>
           )}
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-bse-hairline pt-5 text-sm text-bse-ink-muted"><span>السنة على كل غلاف تشير إلى النسخة أو الدورة المعروضة.</span><a href="mailto:events@bse.bh" className="font-semibold text-bse-blue hover:text-bse-gold">تحتاج ملفًا لمؤتمر سابق؟</a></div>
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-bse-hairline pt-5 text-sm text-bse-ink-muted"><span>{t("yearOnCover")}</span><a href="mailto:events@bse.bh" className="font-semibold text-bse-blue hover:text-bse-gold">{t("needPreviousFile")}</a></div>
         </div>
       </section>
 
-      <ClosingCta eyebrow="PARTNERSHIPS" title="هل لديك مؤتمر قادم؟" description="نحوّل الشراكة إلى برنامج واضح، حضور مؤثر، وتجربة منظمة من الدعوة حتى التقرير الختامي." action={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-white text-bse-indigo hover:bg-bse-gold-soft"><a href="mailto:events@bse.bh">ناقش فرص الشراكة<span aria-hidden="true">↙</span></a></Button>} />
+      <ClosingCta eyebrow={t("conferencesClosingEyebrow")} title={t("conferencesClosingTitle")} description={t("conferencesClosingDesc")} action={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-white text-bse-indigo hover:bg-bse-gold-soft"><a href="mailto:events@bse.bh">{t("discussPartnership")}<span aria-hidden="true">↙</span></a></Button>} />
     </>
   );
 }

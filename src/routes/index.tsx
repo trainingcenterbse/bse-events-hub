@@ -47,42 +47,42 @@ const pillars = [
 ];
 
 function Home() {
-  const { p, t } = useI18n();
+  const { p, t, lang } = useI18n();
   const cards = [
     {
       ...pillars[0]!,
       title: t("navConferences"),
-      count: `${conferences.length.toString().padStart(2, "0")} مؤتمرات رئيسية`,
-      description: "برامج علمية محكّمة، متحدثون متخصصون، ومعارض مصاحبة تجمع القطاع والمهنة.",
-      link: "اعرض المؤتمرات",
+      count: `${conferences.length.toString().padStart(2, "0")} ${t("conferencesCount")}`,
+      description: t("conferencesDescription"),
+      link: t("exploreConferences"),
     },
     {
       ...pillars[1]!,
       title: t("navExhibitions"),
-      count: "02 منصات مملوكة",
-      description: "معارض متخصصة تصل الجامعات والشركات بالمهندسين وصنّاع القرار.",
-      link: "خطط لزيارتك",
+      count: `02 ${t("exhibitionsCount")}`,
+      description: t("exhibitionsDescription"),
+      link: t("planVisit"),
     },
     {
       ...pillars[2]!,
       title: t("navEvents"),
-      count: "120+ فعالية سنوية",
-      description: "فعاليات وطنية واجتماعية وبرامج تخدم أعضاء الجمعية والمجتمع الهندسي.",
-      link: "خطط لحضورك",
+      count: `120+ ${t("eventsCount")}`,
+      description: t("eventsDescription"),
+      link: t("planAttendance"),
     },
     {
       ...pillars[3]!,
       title: t("navSponsors"),
-      count: "شراكات قابلة للقياس",
-      description: "باقات رعاية واضحة وتقارير أثر تساعد الشريك على اتخاذ القرار.",
-      link: "اطلب ملف الرعاية",
+      count: t("partnershipsCount"),
+      description: t("sponsorsDescription"),
+      link: t("requestSponsorship"),
     },
     {
       ...pillars[4]!,
       title: t("navTeam"),
-      count: "فريق متعدد التخصصات",
-      description: "خبرة تشغيلية وفنية وإعلامية في نقطة تواصل واحدة.",
-      link: "تعرّف على طريقة العمل",
+      count: t("teamCount"),
+      description: t("teamDescription"),
+      link: t("learnWorkflow"),
     },
   ];
   const featureConference = conferences[0]!;
@@ -91,13 +91,18 @@ function Home() {
     <>
       <SharedSplitHero
         variant="home"
-        eyebrow="40 عاماً من الأثر"
-        title="منصة البحرين للمعرفة الهندسية واللقاء المهني"
-        description="نصمم مؤتمرات ومعارض وفعاليات تجعل الخبرة الهندسية قابلة للقاء والتعلم والشراكة — من الفكرة إلى التقرير الختامي."
-        image={heroConference}
-        imageAlt="قاعة مؤتمر هندسي وحضور على المسرح"
-        primaryAction={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-bse-gold text-bse-indigo-deep hover:bg-bse-gold-soft"><Link to="/conferences">استكشف المؤتمرات<ArrowUpLeft className="size-4" aria-hidden="true" /></Link></Button>}
-        secondaryAction={<Button asChild size="lg" variant="outline" className="gap-2 rounded-bse-md border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"><Link to="/about">تعرّف على خدماتنا<ArrowUpLeft className="size-4" aria-hidden="true" /></Link></Button>}
+        eyebrows={[t("heroSlide1Eyebrow"), t("heroSlide2Eyebrow"), t("heroSlide3Eyebrow")]}
+        titles={[t("heroSlide1Title"), t("heroSlide2Title"), t("heroSlide3Title")]}
+        descriptions={[t("heroSlide1Description"), t("heroSlide2Description"), t("heroSlide3Description")]}
+        images={[heroConference, heroExhibition, heroEvents]}
+        imageAlts={[
+          lang === "ar" ? "قاعة مؤتمر هندسي وحضور على المسرح" : "Engineering conference hall with attendees on stage",
+          lang === "ar" ? "معرض هندسي متخصص" : "Specialized engineering exhibition",
+          lang === "ar" ? "فعالية هندسية" : "Engineering event",
+        ]}
+        enableSlideshow={true}
+        primaryAction={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-bse-gold text-bse-indigo-deep hover:bg-bse-gold-soft"><Link to="/conferences">{t("exploreConferences")}<ArrowUpLeft className="size-4" aria-hidden="true" /></Link></Button>}
+        secondaryAction={<Button asChild size="lg" variant="outline" className="gap-2 rounded-bse-md border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"><Link to="/about">{t("learnAboutServices")}<ArrowUpLeft className="size-4" aria-hidden="true" /></Link></Button>}
       />
 
       {/* Stats Section with New Design */}
@@ -118,9 +123,9 @@ function Home() {
       <section id="explore" className="bg-bse-canvas-soft px-6 py-20 sm:py-24">
         <div className="mx-auto max-w-bse-content">
           <EditorialSectionHeading
-            eyebrow="استكشف المنصة"
-            title="كل ما تحتاجه لبناء حضور هندسي مؤثر"
-            description="خمسة مسارات واضحة، لكل منها محتوى وخطوة تالية تساعدك على الوصول إلى الأشخاص والفرص المناسبة."
+            eyebrow={t("exploreSectionEyebrow")}
+            title={t("exploreSectionTitle")}
+            description={t("exploreSectionDescription")}
           />
           <div className="mt-12 grid auto-rows-[156px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12">
             {cards.map((card, index) => {
@@ -133,7 +138,7 @@ function Home() {
                   <div className="absolute inset-0 bg-gradient-to-b from-bse-indigo/10 via-bse-indigo/25 to-bse-indigo/95" />
                   <div className="absolute inset-x-6 top-6 flex items-center justify-between gap-3 text-xs font-bold text-bse-gold-soft">
                     <span className="inline-flex items-center gap-2"><Icon className="size-4" aria-hidden="true" />{card.count}</span>
-                    {index === 0 && <Badge className="rounded-bse-md border-white/20 bg-white/10 text-white">رئيسي</Badge>}
+                    {index === 0 && <Badge className="rounded-bse-md border-white/20 bg-white/10 text-white">{t("featured")}</Badge>}
                   </div>
                   <div className="absolute inset-x-6 bottom-6">
                     <TypographyH3 className="text-white">{card.title}</TypographyH3>
@@ -152,28 +157,28 @@ function Home() {
           <div className="relative min-h-[310px] overflow-hidden rounded-bse-xl bg-bse-indigo">
             <img src={seminar} alt="جلسة نقاشية في ندوة هندسية" width={1600} height={1008} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-bse-indigo-deep/90 to-transparent" />
-            <div className="absolute inset-x-6 bottom-6 text-white"><p className="text-xs font-bold text-bse-gold-soft">النسخة القادمة</p><p className="bse-display mt-1 text-xl">{p(featureConference.title)}</p></div>
+            <div className="absolute inset-x-6 bottom-6 text-white"><p className="text-xs font-bold text-bse-gold-soft">{t("nextEdition")}</p><p className="bse-display mt-1 text-xl">{p(featureConference.title)}</p></div>
           </div>
           <div>
-            <p className="text-xs font-bold tracking-[0.16em] text-bse-gold">منصة المعرفة</p>
-            <TypographyH2 className="mt-3">مؤتمرات تبدأ من سؤال واضح وتنتهي بأثر قابل للقياس</TypographyH2>
-            <TypographyP className="mt-5 max-w-2xl">نستضيف برامج تجمع جمعيات المهندسين وصنّاع القرار والجامعات وشركات الطاقة والصناعة حول موضوعات عملية تخدم المنطقة.</TypographyP>
+            <p className="text-xs font-bold tracking-[0.16em] text-bse-gold">{t("knowledgePlatform")}</p>
+            <TypographyH2 className="mt-3">{t("conferencesSectionTitle")}</TypographyH2>
+            <TypographyP className="mt-5 max-w-2xl">{t("conferencesSectionDescription")}</TypographyP>
             <div className="mt-7 grid grid-cols-3 border-y border-bse-hairline py-5">
-              {[{ value: "26", label: "نسخة الملتقى الخليجي" }, { value: "40+", label: "متحدثًا ومتحدثة" }, { value: "3", label: "أيام من البرنامج" }].map((item) => <div key={item.value} className="border-s border-bse-hairline px-4 first:border-s-0"><p className="bse-display text-2xl text-bse-blue">{item.value}</p><p className="mt-1 text-xs text-bse-ink-muted">{item.label}</p></div>)}
+              {[{ value: "26", label: t("gulfForumEdition") }, { value: "40+", label: t("speakersCount") }, { value: "3", label: t("programDays") }].map((item) => <div key={item.value} className="border-s border-bse-hairline px-4 first:border-s-0"><p className="bse-display text-2xl text-bse-blue">{item.value}</p><p className="mt-1 text-xs text-bse-ink-muted">{item.label}</p></div>)}
             </div>
-            <Button asChild variant="link" className="mt-6 h-auto gap-2 px-0 text-bse-blue underline decoration-bse-gold decoration-2 underline-offset-8"><Link to="/conferences">اكتشف تفاصيل المؤتمرات<ArrowUpLeft className="size-4" aria-hidden="true" /></Link></Button>
+            <Button asChild variant="link" className="mt-6 h-auto gap-2 px-0 text-bse-blue underline decoration-bse-gold decoration-2 underline-offset-8"><Link to="/conferences">{t("discoverConferences")}<ArrowUpLeft className="size-4" aria-hidden="true" /></Link></Button>
           </div>
         </div>
       </section>
 
       <section id="about" className="border-t border-bse-hairline bg-bse-canvas-soft px-6 py-20 sm:py-24">
         <div className="mx-auto grid max-w-bse-content items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div><p className="text-xs font-bold tracking-[0.16em] text-bse-gold">طريقة العمل</p><TypographyH2 className="mt-3">كيف نحول الفكرة إلى فعالية</TypographyH2><TypographyP className="mt-4 max-w-xl">مسار واضح يربط التخطيط بالتنفيذ والتوثيق، حتى يعرف كل شريك ما سيحدث ومتى.</TypographyP><div className="mt-9 grid grid-cols-2 gap-5">{[{ code: "01 / IDEA", title: "الفكرة والهدف", text: "نحدد الجمهور والنتيجة ونطاق المشروع قبل أي خطوة." }, { code: "02 / PROGRAMME", title: "البرنامج والشركاء", text: "نبني المحتوى ونستقطب المتحدثين وننسق الشركاء." }, { code: "03 / DELIVERY", title: "التنفيذ في الموقع", text: "تشغيل وتسجيل وسلامة وتجربة حضور متسقة." }, { code: "04 / REPORT", title: "التقرير والأثر", text: "نوثق النتائج ونحوّل ما تعلمناه إلى نسخة أقوى." }].map((step) => <div key={step.code} className="border-t-2 border-bse-gold pt-4"><p className="text-xs font-bold tracking-[0.12em] text-bse-gold">{step.code}</p><h3 className="bse-display mt-2 text-base text-bse-indigo">{step.title}</h3><p className="mt-2 text-xs leading-relaxed text-bse-ink-muted">{step.text}</p></div>)}</div></div>
-          <div className="relative overflow-hidden rounded-bse-xl bg-bse-indigo p-3"><img src={teamWork} alt="فريق تنظيم يراجع مخطط فعالية" width={1600} height={1000} loading="lazy" decoding="async" className="h-[390px] w-full rounded-bse-lg object-cover" /><div className="absolute inset-x-7 bottom-7 rounded-bse-lg border border-white/20 bg-bse-indigo-deep/85 p-5 text-white"><p className="text-xs font-bold tracking-[0.14em] text-bse-gold-soft">ONE DELIVERY TEAM</p><p className="bse-display mt-2 text-xl">من الفكرة إلى التقرير الختامي</p></div></div>
+          <div><p className="text-xs font-bold tracking-[0.16em] text-bse-gold">{t("workflowSectionTitle")}</p><TypographyH2 className="mt-3">{t("workflowSectionTitle")}</TypographyH2><TypographyP className="mt-4 max-w-xl">{t("workflowSectionDescription")}</TypographyP><div className="mt-9 grid grid-cols-2 gap-5">{[{ code: "01 / IDEA", title: t("ideaStep"), text: t("ideaStepDesc") }, { code: "02 / PROGRAMME", title: t("programStep"), text: t("programStepDesc") }, { code: "03 / DELIVERY", title: t("deliveryStep"), text: t("deliveryStepDesc") }, { code: "04 / REPORT", title: t("reportStep"), text: t("reportStepDesc") }].map((step) => <div key={step.code} className="border-t-2 border-bse-gold pt-4"><p className="text-xs font-bold tracking-[0.12em] text-bse-gold">{step.code}</p><h3 className="bse-display mt-2 text-base text-bse-indigo">{step.title}</h3><p className="mt-2 text-xs leading-relaxed text-bse-ink-muted">{step.text}</p></div>)}</div></div>
+          <div className="relative overflow-hidden rounded-bse-xl bg-bse-indigo p-3"><img src={teamWork} alt={lang === "ar" ? "فريق تنظيم يراجع مخطط فعالية" : "Event organization team reviewing event plan"} width={1600} height={1000} loading="lazy" decoding="async" className="h-[390px] w-full rounded-bse-lg object-cover" /><div className="absolute inset-x-7 bottom-7 rounded-bse-lg border border-white/20 bg-bse-indigo-deep/85 p-5 text-white"><p className="text-xs font-bold tracking-[0.14em] text-bse-gold-soft">ONE DELIVERY TEAM</p><p className="bse-display mt-2 text-xl">{t("fromIdeaToReport")}</p></div></div>
         </div>
       </section>
 
-      <ClosingCta eyebrow="الختام يبدأ من محادثة" title="هل لديك فعالية تستحق منصة أكبر؟" description="شاركنا الفكرة، وسنساعدك على تحويلها إلى تجربة واضحة للحضور وشراكة ذات أثر للراعي." action={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-white text-bse-teal hover:bg-bse-gold-soft"><a href="mailto:events@bse.bh">ابدأ محادثة<ArrowUpLeft className="size-4" aria-hidden="true" /></a></Button>} />
+      <ClosingCta eyebrow={t("closingEyebrow")} title={t("closingTitle")} description={t("closingDescription")} action={<Button asChild size="lg" className="gap-2 rounded-bse-md bg-white text-bse-teal hover:bg-bse-gold-soft"><a href="mailto:events@bse.bh">{t("startConversation")}<ArrowUpLeft className="size-4" aria-hidden="true" /></a></Button>} />
     </>
   );
 }
